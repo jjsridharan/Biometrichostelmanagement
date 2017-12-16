@@ -19,7 +19,29 @@
     <link rel="stylesheet" href="css/styles-merged.css">
     <link rel="stylesheet" href="css/style.min.css">
     <link rel="stylesheet" href="css/custom.css">
-
+	
+	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript">
+		function Validate()
+		{
+			var reg=document.getElementById("regno").value;
+			document.getElementById("regno").readOnly=true;
+			$.ajax(
+			{
+				type: "POST",
+				url : "Validateregno.php",
+				data : "regno="+reg,
+				dataType :"json",
+				success : function(response)
+				{
+					alert(response);
+				}				
+			}
+			);
+		}
+	</script>
+	
+	
     <!--[if lt IE 9]>
       <script src="js/vendor/html5shiv.min.js"></script>
       <script src="js/vendor/respond.min.js"></script>
@@ -135,27 +157,16 @@
 
       <section class="probootstrap-section">
 		<div class="container">
-		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">
-                  
-                  <form action="#" method="post" class="probootstrap-form">                  
+		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
+                  <form method="post" class="probootstrap-form" onsubmit="return  Validate()">                  
+                      <label class="text">Register Number</label><br/>
+                      <input type="text" id="regno" placeholder="Register Number" name="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					  <input type="submit" value="Validate" name="submit"/>
+                  </form>
+				  <form action="#" method="post" class="probootstrap-form">                  
                       <label class="text">Register Number</label><br/>
                       <input type="text" id="name" placeholder="Register Number" name="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					  <input type="submit" value="Validate"/>
-                    <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                    <div class="form-group">
-                      <label for="subject">Subject</label>
-                      <input type="text" class="form-control" id="subject" name="subject">
-                    </div>
-                    <div class="form-group">
-                      <label for="message">Message</label>
-                      <textarea cols="30" rows="10" class="form-control" id="message" name="message"></textarea>
-                    </div>
-                    <div class="form-group">
-                      <input type="submit" class="btn btn-primary btn-lg" id="submit" name="submit" value="Send Message">
-                    </div>
                   </form>
             </div>
 		</div>
