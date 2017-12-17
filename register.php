@@ -25,6 +25,10 @@
 		function Validate()
 		{
 			var reg=document.getElementById("regno").value;
+<<<<<<< HEAD
+=======
+			alert(reg);
+>>>>>>> db533222e5cc3371b0545171e7a7025db1b981be
 			document.getElementById("regno").readOnly=true;
 			$.ajax(
 			{
@@ -157,6 +161,7 @@
 
       <section class="probootstrap-section">
 		<div class="container">
+<<<<<<< HEAD
 		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
                   <form method="post" class="probootstrap-form" onsubmit="return  Validate()">                  
                       <label class="text">Register Number</label><br/>
@@ -167,6 +172,68 @@
                       <label class="text">Register Number</label><br/>
                       <input type="text" id="name" placeholder="Register Number" name="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					  <input type="submit" value="Validate"/>
+=======
+		<div hidden class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
+                  <form method="post" class="probootstrap-form" onsubmit="return  Validate()">                  
+                      <label class="text">Register Number</label><br/>
+                      <input type="text" id="regno" placeholder="Register Number" name="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			       <input type="submit" value="Validate" name="submit"/>
+                  </form>
+            </div>
+		  <div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
+                  <form method="post" class="probootstrap-form" onsubmit="return  Validate()">                  
+				  <label class="text">Student Information</label><br/>
+                      <label class="text">Register Number</label><br/>
+                      <input type="text" id="regno" placeholder="Register Number" name="regno"><br/><br/>
+				  <label class="text">Name</label><br/><br/>
+				  <input type="text" id="name" placeholder="Name" name="name"><br/><br/>
+				  <label class="text">Gender</label><br/><br/>
+				  <select id="gender" placeholder="Name" name="name">
+					<option id="m">Male</option>
+					<option id="fm">Female</option>
+				  </select><br/><br/>
+				  <label class="text">Graduate Level</label><br/><br/>
+				  <select id="grad" placeholder="Name" name="name">
+					<option id="m">UG</option>
+					<option id="fm">PG</option>					
+					<option id="fm">Ph.D</option>
+				  </select><br/><br/>
+				  <select id="dep" name="de" required>  
+     				<option value="" selected disabled>Please select Your Department</option>
+                         <option value="AERO">AERO</option>
+                         <option value="AUTO">AUTO</option>
+                         <option value="CSE">CSE</option>
+                         <option value="ECE">ECE</option>
+                         <option value="EIE">EIE</option>
+                         <option value="IT">IT</option>
+                         <option value="MECH">MECH</option>
+                         <option value="PT">PT</option>
+                         <option value="RPT">RPT</option>
+                      </select><br><br><br>
+				  <select id="dep" name="de" required>  
+     				<option value="" selected disabled>Please select Your Department</option>
+                         <option value="AERO">AERO</option>
+                         <option value="AUTO">AUTO</option>
+                         <option value="CSE">CSE</option>
+                         <option value="ECE">ECE</option>
+                         <option value="EIE">EIE</option>
+                         <option value="IT">IT</option>
+                         <option value="MECH">MECH</option>
+                         <option value="PT">PT</option>
+                         <option value="RPT">RPT</option>
+                      </select><br><br><br>
+				  <label class="text">Year</label><br/><br/>
+				  <input type="text" id="name" placeholder="Year" name="name"><br/><br/>
+				  <label class="text">Parent Information</label><br/><br/>
+				  <label class="text">Father Name</label><br/>
+				  <input type="text" id="name" placeholder="Father Name" name="name"><br/><br/>
+				  <label class="text">Mail id</label><br/>
+				  <input type="text" id="name" placeholder="Mail id" name="name"><br/><br/>
+				  <label class="text">Phone number</label><br/>
+				  <input type="text" id="name" placeholder="Phone Number" name="name"><br/><br/>
+				  
+                      <input type="submit" value="Validate" name="submit"/>
+>>>>>>> db533222e5cc3371b0545171e7a7025db1b981be
                   </form>
             </div>
 		</div>
