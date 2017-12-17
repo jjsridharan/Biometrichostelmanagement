@@ -1,14 +1,16 @@
 <?php
     include('dbconnection.php');
 	$regno=$_POST['regno'];
-	$qry="Select name from student where regno='$regno'";
+	$qry="Select fname,year,dept from student where regno='$regno'";
 	$result=mysqli_query($conn,$qry);
-	if(mysqli_num_rows($result)>0)
+	if($result && mysqli_num_rows($result)>0)
 	{
-		echo json_encode("success");
+		$result  = mysqli_fetch_assoc($result);
+		$res = $result['fname'].";".$result['year'].";".$result['dept'];
+		echo json_encode($res);		
 	}
 	else
-	{		
-		echo json_encode("not present");
+	{	
+		echo json_encode("success");
 	}
 ?>	

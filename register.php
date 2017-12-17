@@ -24,12 +24,10 @@
     <script type="text/javascript">
 		function Validate()
 		{
+			document.getElementById("process").hidden=false;
 			var reg=document.getElementById("regno").value;
-<<<<<<< HEAD
-=======
-			alert(reg);
->>>>>>> db533222e5cc3371b0545171e7a7025db1b981be
 			document.getElementById("regno").readOnly=true;
+			document.getElementById("present").hidden=true;
 			$.ajax(
 			{
 				type: "POST",
@@ -37,12 +35,92 @@
 				data : "regno="+reg,
 				dataType :"json",
 				success : function(response)
-				{
-					alert(response);
+				{					
+					if(response=="success")
+					{
+						document.getElementById("orgform").hidden=false;
+						document.getElementById("validate").style.display="none";
+						document.getElementById("studinfo").hidden=false;
+						document.getElementById("regno1").value=reg;
+					}
+					else
+					{
+						alert("Student Id already Present");						
+						document.getElementById("present").hidden=false;
+						var info = response.split(";");
+						document.getElementById("regno").readOnly=false;						
+						document.getElementById("sname").innerHTML=info[0];
+						document.getElementById("sdept").innerHTML=info[2];
+						document.getElementById("syear").innerHTML=info[1]+" year";
+					}	
+					document.getElementById("process").hidden=true;					
 				}				
 			}
 			);
 		}
+		$(function(){
+		$("#grad").change(function()
+		{
+			var grad=document.getElementById("grad").value;
+			document.getElementById("grad1").value=grad;
+			if(grad=="UG")
+			{
+				document.getElementById("ug").hidden=false;
+				document.getElementById("pg").hidden=true;
+				document.getElementById("phd").hidden=true;
+			}
+			else if(grad=="PG")
+			{
+				document.getElementById("ug").hidden=true;
+				document.getElementById("pg").hidden=false;
+				document.getElementById("phd").hidden=true;
+			}
+			else
+			{
+				document.getElementById("ug").hidden=true;
+				document.getElementById("pg").hidden=true;
+				document.getElementById("phd").hidden=false;
+			}
+				
+		}
+		);
+		$("#ug").change(function()
+		{
+			var grad=document.getElementById("grad").value;
+			document.getElementById("grad1").value=grad;
+			document.getElementById("grad").disabled=true;
+			document.getElementById("gradchange").hidden=false;
+			document.getElementById("gradchange1").hidden=true;
+		});
+		$("#pg").change(function()
+		{
+			var grad=document.getElementById("grad").value;
+			document.getElementById("grad1").value=grad;
+			var grad=document.getElementById("grad").value;
+			document.getElementById("grad1").value=grad;
+			document.getElementById("grad").disabled=true;
+			document.getElementById("gradchange").hidden=false;
+			document.getElementById("gradchange1").hidden=true;
+		});
+		$("#phd").change(function()
+		{
+			var grad=document.getElementById("grad").value;
+			document.getElementById("grad1").value=grad;
+			document.getElementById("grad").disabled=true;
+			document.getElementById("gradchange").hidden=false;
+			document.getElementById("gradchange1").hidden=true;
+		});
+		$("#gradselect").click(function()
+		{
+			document.getElementById("ug").hidden=true;
+			document.getElementById("pg").hidden=true;
+			document.getElementById("phd").hidden=true;
+			document.getElementById("grad").disabled=false;
+			document.getElementById("gradchange").hidden=true;
+			document.getElementById("gradchange1").hidden=false;
+		});
+		});
+		
 	</script>
 	
 	
@@ -51,21 +129,22 @@
       <script src="js/vendor/respond.min.js"></script>
     <![endif]-->
 	<style>
-		input[type=text] 
+		input[type=text],#grad,#pgdep,#ugdep,#phdep,input[type=number],input[type=email]
 		{
 			width: 50%;
 			padding: 9px 15px;
 			border-radius:10px;
+			outline:none;
 		}
-		input[type=text]:hover
+		input[type=text]:hover,input[type=number]:hover,input[type=email]:hover
 		{
 			border: 2px solid red;
 		}
-		input[type=text]:focus
+		input[type=text]:focus,input[type=number]:focus,input[type=email]:focus
 		{
 			outline: none;
 		}
-		input[type=submit]
+		input[type=submit],#validate,#gradselect
 		{
 			border:none;
 			padding: 8px 20px;
@@ -82,7 +161,7 @@
 			color: black;
 			border: 2px solid #555555;
 		}
-		input[type=submit]:hover 
+		input[type=submit]:hover,#gradselect:hover,#validate:hover
 		{
 			background-color: #555555;
 			color: white;
@@ -91,7 +170,17 @@
 		{
 			font-size: 18px;
 			color: black;
-		}	
+		}
+		.smalltext		
+		{
+			font-size:14px;
+			color:black;
+		}
+		table, th, td 
+		{
+			
+			border: 1px solid black;
+		}
 	</style>
   </head>
   <body>
@@ -161,310 +250,111 @@
 
       <section class="probootstrap-section">
 		<div class="container">
-<<<<<<< HEAD
 		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
-                  <form method="post" class="probootstrap-form" onsubmit="return  Validate()">                  
+                      <h2 style="color:#8000ff" id="studinfo" hidden>Student Information</h2>
                       <label class="text">Register Number</label><br/>
-                      <input type="text" id="regno" placeholder="Register Number" name="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					  <input type="submit" value="Validate" name="submit"/>
-                  </form>
-				  <form action="#" method="post" class="probootstrap-form">                  
-                      <label class="text">Register Number</label><br/>
-                      <input type="text" id="name" placeholder="Register Number" name="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					  <input type="submit" value="Validate"/>
-=======
-		<div hidden class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
-                  <form method="post" class="probootstrap-form" onsubmit="return  Validate()">                  
-                      <label class="text">Register Number</label><br/>
-                      <input type="text" id="regno" placeholder="Register Number" name="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			       <input type="submit" value="Validate" name="submit"/>
-                  </form>
-            </div>
-		  <div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
-                  <form method="post" class="probootstrap-form" onsubmit="return  Validate()">                  
-				  <label class="text">Student Information</label><br/>
-                      <label class="text">Register Number</label><br/>
-                      <input type="text" id="regno" placeholder="Register Number" name="regno"><br/><br/>
-				  <label class="text">Name</label><br/><br/>
-				  <input type="text" id="name" placeholder="Name" name="name"><br/><br/>
-				  <label class="text">Gender</label><br/><br/>
-				  <select id="gender" placeholder="Name" name="name">
-					<option id="m">Male</option>
-					<option id="fm">Female</option>
-				  </select><br/><br/>
-				  <label class="text">Graduate Level</label><br/><br/>
-				  <select id="grad" placeholder="Name" name="name">
-					<option id="m">UG</option>
-					<option id="fm">PG</option>					
-					<option id="fm">Ph.D</option>
-				  </select><br/><br/>
-				  <select id="dep" name="de" required>  
-     				<option value="" selected disabled>Please select Your Department</option>
-                         <option value="AERO">AERO</option>
-                         <option value="AUTO">AUTO</option>
-                         <option value="CSE">CSE</option>
-                         <option value="ECE">ECE</option>
-                         <option value="EIE">EIE</option>
-                         <option value="IT">IT</option>
-                         <option value="MECH">MECH</option>
-                         <option value="PT">PT</option>
-                         <option value="RPT">RPT</option>
-                      </select><br><br><br>
-				  <select id="dep" name="de" required>  
-     				<option value="" selected disabled>Please select Your Department</option>
-                         <option value="AERO">AERO</option>
-                         <option value="AUTO">AUTO</option>
-                         <option value="CSE">CSE</option>
-                         <option value="ECE">ECE</option>
-                         <option value="EIE">EIE</option>
-                         <option value="IT">IT</option>
-                         <option value="MECH">MECH</option>
-                         <option value="PT">PT</option>
-                         <option value="RPT">RPT</option>
-                      </select><br><br><br>
-				  <label class="text">Year</label><br/><br/>
-				  <input type="text" id="name" placeholder="Year" name="name"><br/><br/>
-				  <label class="text">Parent Information</label><br/><br/>
-				  <label class="text">Father Name</label><br/>
-				  <input type="text" id="name" placeholder="Father Name" name="name"><br/><br/>
-				  <label class="text">Mail id</label><br/>
-				  <input type="text" id="name" placeholder="Mail id" name="name"><br/><br/>
-				  <label class="text">Phone number</label><br/>
-				  <input type="text" id="name" placeholder="Phone Number" name="name"><br/><br/>
-				  
-                      <input type="submit" value="Validate" name="submit"/>
->>>>>>> db533222e5cc3371b0545171e7a7025db1b981be
+                      <input type="text" id="regno" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Register Number">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					  <button id="validate" onclick="Validate()">Validate</button>                 
+					  <img id="process" src="img/process.gif" alt="Processing" hidden></img>
+        </div>
+		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="present" hidden>    
+			<h2 style="color:#8000ff">Student Information</h2>
+             <table style="width:100%;">
+				<tr>
+					<td id="sname">
+					</td>
+					<td id="sdept">
+					</td>
+					<td id="syear">
+					</td>
+				</tr>
+			 </table>
+        </div>
+		  <div class="col-md-7 col-md-push-1  probootstrap-animate" id="orgform" hidden>                  
+                  <form method="post" action="reg.php">        
+					  <label class="text">Name</label><br/>
+					  <input type="text" id="name" placeholder="First Name" name="sfname" required><br/><br/>
+					  <input type="text" id="name" placeholder="Last Name" name="lname" required><br/><br/>
+					  <input type="text" id="regno1" placeholder="Register Number" name="regno" hidden>
+					  <label class="text">Gender</label><br/>
+					  <input type="radio" name="gender" value="male"> <label class="smalltext" required>Male</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					  <input type="radio" name="gender" value="female"> <label class="smalltext" required>Female</label><br/><br/>
+					  <label class="text">Graduate Position</label><br/>
+					  <input type="text" name="grads" id="grad1" hidden/>
+					  <select id="grad" required>
+						<option value="" selected disabled>Please select Your Department</option>
+						<option value="UG">UG</option>
+						<option value="PG">PG</option>					
+						<option value="Ph.D">Ph.D</option>
+					  </select>
+					  <div id="gradchange" hidden>
+						<button id="gradselect" onclick="return false;">Change</button><br/>
+					  </div>
+					  <div id="gradchange1">
+						<br/><br/>
+					  </div>
+					  <div id="ug" hidden>
+					  <label class="text">Department</label><br/>
+					  <select id="ugdep" name="dept"> 
+							 <option value="" selected disabled>Please select Your Department</option>
+							 <option value="AERO">AERO</option>
+							 <option value="AUTO">AUTO</option>
+							 <option value="CSE">CSE</option>
+							 <option value="ECE">ECE</option>
+							 <option value="EIE">EIE</option>
+							 <option value="IT">IT</option>
+							 <option value="MECH">MECH</option>
+							 <option value="PT">PT</option>
+							 <option value="RPT">RPT</option>
+						  </select><br><br>
+					  </div>
+					  <div id="pg" hidden>
+					  <label class="text">Department</label><br/>
+					  <select id="pgdep" name="dept1">  
+						<option value="" selected disabled>Please select Your Department</option>
+							 <option value="AERO">AERO</option>
+							 <option value="AUTO">AUTO</option>
+							 <option value="CSE">CSE</option>
+							 <option value="ECE">ECE</option>
+							 <option value="EIE">EIE</option>
+							 <option value="IT">IT</option>
+							 <option value="MECH">MECH</option>
+							 <option value="PT">PT</option>
+							 <option value="RPT">RPT</option>
+						  </select><br><br>
+					  </div>
+					  <div id="phd" hidden>
+					  <label class="text">Department</label><br/>
+					  <select id="phdep" name="dept2">  
+						<option value="" selected disabled>Please select Your Department</option>
+							 <option value="AERO">AERO</option>
+							 <option value="AUTO">AUTO</option>
+							 <option value="CSE">CSE</option>
+							 <option value="ECE">ECE</option>
+							 <option value="EIE">EIE</option>
+							 <option value="IT">IT</option>
+							 <option value="MECH">MECH</option>
+							 <option value="PT">PT</option>
+							 <option value="RPT">RPT</option>
+						  </select><br><br>
+					  </div>
+					  <label class="text">Year (Ex: 2)</label><br/>
+					  <input type="number" name="year" id="year" placeholder="Year" min="1" max="7" required><br/><br/>
+					  <label class="text">Mail id</label><br/>
+					  <input type="email" id="name" placeholder="Mail id" name="mid" required><br/><br/>
+					  <label class="text">Phone number</label><br/>
+					  <input type="text" id="name" placeholder="Phone Number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required name="pho"><br/><br/>
+					  <h2 style="color:#8000ff">Parent Information</h2>
+					  <label class="text">Father Name</label><br/>
+					  <input type="text" id="name" placeholder="Father Name" name="fname" required><br/><br/>
+					  <label class="text">Mail id</label><br/>
+					  <input type="email" id="name" placeholder="Mail id" name="fmid" required><br/><br/>
+					  <label class="text">Phone number</label><br/>
+					  <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="name" placeholder="Phone Number" name="fpho" required><br/><br/>				  
+					  <input type="submit" value="Register"/>
                   </form>
             </div>
 		</div>
-      </section>
-
-      <section class="probootstrap-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="probootstrap-service-2 probootstrap-animate">
-                <div class="image">
-                  <div class="image-bg">
-                    <img src="img/img_sm_1.jpg" alt="Free Bootstrap Template by ProBootstrap.com">
-                  </div>
-                </div>
-                <div class="text">
-                  <span class="probootstrap-meta"><i class="icon-calendar2"></i> July 10, 2017</span>
-                  <h3>Application Design</h3>
-                  <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
-                  <p><a href="#" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">2,928 students enrolled</span></p>
-                </div>
-              </div>
-
-              <div class="probootstrap-service-2 probootstrap-animate">
-                <div class="image">
-                  <div class="image-bg">
-                    <img src="img/img_sm_3.jpg" alt="Free Bootstrap Template by ProBootstrap.com">
-                  </div>
-                </div>
-                <div class="text">
-                  <span class="probootstrap-meta"><i class="icon-calendar2"></i> July 10, 2017</span>
-                  <h3>Chemical Engineering</h3>
-                  <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
-                  <p><a href="#" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">7,202 students enrolled</span></p>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-md-6">
-              <div class="probootstrap-service-2 probootstrap-animate">
-                <div class="image">
-                  <div class="image-bg">
-                    <img src="img/img_sm_2.jpg" alt="Free Bootstrap Template by ProBootstrap.com">
-                  </div>
-                </div>
-                <div class="text">
-                  <span class="probootstrap-meta"><i class="icon-calendar2"></i> July 10, 2017</span>
-                  <h3>Math Major</h3>
-                  <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
-                  <p><a href="#" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">12,582 students enrolled</span></p>
-                </div>
-              </div>
-
-              <div class="probootstrap-service-2 probootstrap-animate">
-                <div class="image">
-                  <div class="image-bg">
-                    <img src="img/img_sm_4.jpg" alt="Free Bootstrap Template by ProBootstrap.com">
-                  </div>
-                </div>
-                <div class="text">
-                  <span class="probootstrap-meta"><i class="icon-calendar2"></i> July 10, 2017</span>
-                  <h3>English Major</h3>
-                  <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
-                  <p><a href="#" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">9,582 students enrolled</span></p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="probootstrap-service-2 probootstrap-animate">
-                <div class="image">
-                  <div class="image-bg">
-                    <img src="img/img_sm_1.jpg" alt="Free Bootstrap Template by ProBootstrap.com">
-                  </div>
-                </div>
-                <div class="text">
-                  <span class="probootstrap-meta"><i class="icon-calendar2"></i> July 10, 2017</span>
-                  <h3>Application Design</h3>
-                  <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
-                  <p><a href="#" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">2,928 students enrolled</span></p>
-                </div>
-              </div>
-
-              <div class="probootstrap-service-2 probootstrap-animate">
-                <div class="image">
-                  <div class="image-bg">
-                    <img src="img/img_sm_3.jpg" alt="Free Bootstrap Template by ProBootstrap.com">
-                  </div>
-                </div>
-                <div class="text">
-                  <span class="probootstrap-meta"><i class="icon-calendar2"></i> July 10, 2017</span>
-                  <h3>Chemical Engineering</h3>
-                  <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
-                  <p><a href="#" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">7,202 students enrolled</span></p>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-md-6">
-              <div class="probootstrap-service-2 probootstrap-animate">
-                <div class="image">
-                  <div class="image-bg">
-                    <img src="img/img_sm_2.jpg" alt="Free Bootstrap Template by ProBootstrap.com">
-                  </div>
-                </div>
-                <div class="text">
-                  <span class="probootstrap-meta"><i class="icon-calendar2"></i> July 10, 2017</span>
-                  <h3>Math Major</h3>
-                  <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
-                  <p><a href="#" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">12,582 students enrolled</span></p>
-                </div>
-              </div>
-
-              <div class="probootstrap-service-2 probootstrap-animate">
-                <div class="image">
-                  <div class="image-bg">
-                    <img src="img/img_sm_4.jpg" alt="Free Bootstrap Template by ProBootstrap.com">
-                  </div>
-                </div>
-                <div class="text">
-                  <span class="probootstrap-meta"><i class="icon-calendar2"></i> July 10, 2017</span>
-                  <h3>English Major</h3>
-                  <p>Laboriosam pariatur modi praesentium deleniti molestiae officiis atque numquam quos quis nisi voluptatum architecto rerum error.</p>
-                  <p><a href="#" class="btn btn-primary">Enroll now</a> <span class="enrolled-count">9,582 students enrolled</span></p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      
-      
-      <section class="probootstrap-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6 col-md-offset-3 text-center section-heading probootstrap-animate">
-              <h2>Meet Our Qualified Teachers</h2>
-              <p class="lead">Sed a repudiandae impedit voluptate nam Deleniti dignissimos perspiciatis nostrum porro nesciunt</p>
-            </div>
-          </div>
-          <!-- END row -->
-
-          <div class="row">
-            <div class="col-md-3 col-sm-6">
-              <div class="probootstrap-teacher text-center probootstrap-animate">
-                <figure class="media">
-                  <img src="img/person_1.jpg" alt="Free Bootstrap Template by ProBootstrap.com" class="img-responsive">
-                </figure>
-                <div class="text">
-                  <h3>Chris Worth</h3>
-                  <p>Physical Education</p>
-                  <ul class="probootstrap-footer-social">
-                    <li class="twitter"><a href="#"><i class="icon-twitter"></i></a></li>
-                    <li class="facebook"><a href="#"><i class="icon-facebook2"></i></a></li>
-                    <li class="instagram"><a href="#"><i class="icon-instagram2"></i></a></li>
-                    <li class="google-plus"><a href="#"><i class="icon-google-plus"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <div class="probootstrap-teacher text-center probootstrap-animate">
-                <figure class="media">
-                  <img src="img/person_5.jpg" alt="Free Bootstrap Template by ProBootstrap.com" class="img-responsive">
-                </figure>
-                <div class="text">
-                  <h3>Janet Morris</h3>
-                  <p>English Teacher</p>
-                  <ul class="probootstrap-footer-social">
-                    <li class="twitter"><a href="#"><i class="icon-twitter"></i></a></li>
-                    <li class="facebook"><a href="#"><i class="icon-facebook2"></i></a></li>
-                    <li class="instagram"><a href="#"><i class="icon-instagram2"></i></a></li>
-                    <li class="google-plus"><a href="#"><i class="icon-google-plus"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="clearfix visible-sm-block visible-xs-block"></div>
-            <div class="col-md-3 col-sm-6">
-              <div class="probootstrap-teacher text-center probootstrap-animate">
-                <figure class="media">
-                  <img src="img/person_6.jpg" alt="Free Bootstrap Template by ProBootstrap.com" class="img-responsive">
-                </figure>
-                <div class="text">
-                  <h3>Linda Reyez</h3>
-                  <p>Math Teacher</p>
-                  <ul class="probootstrap-footer-social">
-                    <li class="twitter"><a href="#"><i class="icon-twitter"></i></a></li>
-                    <li class="facebook"><a href="#"><i class="icon-facebook2"></i></a></li>
-                    <li class="instagram"><a href="#"><i class="icon-instagram2"></i></a></li>
-                    <li class="google-plus"><a href="#"><i class="icon-google-plus"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <div class="probootstrap-teacher text-center probootstrap-animate">
-                <figure class="media">
-                  <img src="img/person_7.jpg" alt="Free Bootstrap Template by ProBootstrap.com" class="img-responsive">
-                </figure>
-                <div class="text">
-                  <h3>Jessa Sy</h3>
-                  <p>Physics Teacher</p>
-                  <ul class="probootstrap-footer-social">
-                    <li class="twitter"><a href="#"><i class="icon-twitter"></i></a></li>
-                    <li class="facebook"><a href="#"><i class="icon-facebook2"></i></a></li>
-                    <li class="instagram"><a href="#"><i class="icon-instagram2"></i></a></li>
-                    <li class="google-plus"><a href="#"><i class="icon-google-plus"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-      
-      <section class="probootstrap-cta">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <h2 class="probootstrap-animate" data-animate-effect="fadeInRight">Get your admission now!</h2>
-              <a href="#" role="button" class="btn btn-primary btn-lg btn-ghost probootstrap-animate" data-animate-effect="fadeInLeft">Enroll</a>
-            </div>
-          </div>
-        </div>
       </section>
       <footer class="probootstrap-footer probootstrap-bg">
         <div class="container">
@@ -526,7 +416,7 @@
         </div>
       </footer>
 
-    </div>
+    
     <!-- END wrapper -->
     
 
