@@ -7,6 +7,13 @@
   Author URL: https://probootstrap.com
   License: Released for free under the Creative Commons Attribution 3.0 license (probootstrap.com/license)
 -->
+<?php
+	include('dbconnection.php');
+	if(!isset($_SESSION['rcname']))
+	{
+		$_SESSION['rcname']="Raja";
+	}
+?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -34,6 +41,47 @@
 			return true;
 			
 		}
+		$(document).ready(function()
+		{
+			$("button").click(function()
+			{
+				var reg=$(this).val();
+				var index=reg.indexOf("cross");
+				var page="acceptop.php";
+				if(index!=-1)
+				{
+					reg=reg.substring(index+5);
+					page="rejectop.php";
+				}
+				var td="r"+reg,st="s"+reg,et="e"+reg;
+				document.getElementById(td).innerHTML="Processing...";
+				st=document.getElementById(st).innerHTML;
+				et=document.getElementById(et).innerHTML;				
+				reg="reg"+reg;
+				reg=document.getElementById(reg).innerHTML;		
+				var rcname= "<?php echo $_SESSION['rcname'] ?>";				
+				$.ajax(
+				{
+						type:"POST",
+						url:page,
+						data :"regno="+reg+"&st="+st+"&et="+et+"&rc="+rcname,
+						dataType:"json",
+						success:function(response)
+						{							
+							if(response.indexOf("success")!=-1)
+							{
+								document.getElementById(td).innerHTML="Processed";
+							}
+							else
+							{
+								document.getElementById(td).innerHTML="Error";
+							}
+						}
+				}
+				);					
+			});
+		});
+	
 	</script>
 	
 	
@@ -98,16 +146,40 @@
 			font-size:14px;
 			color:black;
 		}
+		#requests 
+		{
+			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		#requests td, #requests th 
+		{
+			border: 1px solid #ddd;
+			padding: 8px;
+		}
+
+		#requests tr:nth-child(even)
+		{
+			background-color: #f2f2f2;
+		}
+		#requests tr:hover 
+		{
+			background-color: #ddd;
+		}
+		#requests th 
+		{
+			padding-top: 12px;
+			padding-bottom: 12px;
+			text-align: left;
+			background-color: #FFFFCC;
+			color: black;
+		}
 	</style>
   </head>
   <body>
 
-    <div class="probootstrap-search" id="probootstrap-search">
-      <a href="#" class="probootstrap-close js-probootstrap-close"><i class="icon-cross"></i></a>
-      <form action="#">
-        <input type="search" name="s" id="search" placeholder="Search a keyword and hit enter...">
-      </form>
-    </div>
+    
     
       <nav class="navbar navbar-default probootstrap-navbar">
         <div class="container">
@@ -127,7 +199,7 @@
           <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li><a href="index.html">Home</a></li>
-              <li class="active"><a href="register.php">Register</a></li>
+              <li class="active"><a href="oprequests.php">Outpass Requests</a></li>
               <li><a href="teachers.html">Teachers</a></li>
               <li><a href="events.html">Events</a></li>
               <li class="dropdown">
@@ -157,40 +229,43 @@
       
        <section id="headersectionstart">
         <div class="container">        
-              <h1>Outpass Form</h1>
+              <h1>Outpass Requests</h1>
         </div>
       </section>
 
       <section class="probootstrap-section">
 		<div class="container">
 		  <div class="col-md-7 col-md-push-1  probootstrap-animate" id="orgform">                  
-                  <form method="post" action="out.php" onsubmit="return Validate()">        
-					  <label class="text">Register Number</label><br/>
-					  <input type="text" id="regno1" placeholder="Register Number" name="regno"><br/><br/>
-					  <label class="text">RC Name</label><br/>
-					  <select id="rcname" name="rcname" required>
-						<option value="" selected disabled>Please select Your RC Name</option>
-						<?php
-							include('dbconnection.php');
-							$qry="select name,hname,hblock from rclist";
-							$res=mysqli_query($conn,$qry);	
-							if($res && mysqli_num_rows($res))
+				<h2>Active Requests</h2>
+				<table id="requests">
+				<tr>					
+					<th>Name</th>
+					<th>Dept.</th>
+					<th>Start date</th>
+					<th>End date</th>
+					<th>Accept/Reject</th>
+				</tr>
+				<?php
+					$qry="select * from outpassrequest where rcname='".$_SESSION['rcname']."'";
+					$res=mysqli_query($conn,$qry);
+					if($res && mysqli_num_rows($res))
+					{
+						$counter=0;
+						while($row=mysqli_fetch_assoc($res))
+						{
+							$qry="select fname,dept from student where regno='".$row['regno']."' LIMIT 1";
+							$result=mysqli_query($conn,$qry);
+							if($result && mysqli_num_rows($result))
 							{
-								while($row=mysqli_fetch_assoc($res))
-								{
-									echo '<option value="'.$row['name'].'">'.$row['name'].' ('.$row['hname'].' / '.$row['hblock'].')</option>';
-								}
+								$r=mysqli_fetch_assoc($result);
+								echo '<label id="reg'.$counter.'" hidden>'.$row['regno'].'</label>';
+								echo '<tr><td>'.$r['fname'].'</td><td>'.$r['dept'].'</td><td id="s'.$counter.'">'.$row['sdate'].'</td><td id="e'.$counter.'">'.$row['edate'].'</td><td id="r'.$counter.'">'.'<button value="'.$counter.'"><img src="img/tick.png" style="width:20px;height:20px;"></img></button><button style="float:right" value="cross'.$counter.'"><img src="img/cross.png" style="width:20px;height:20px;"></img></button>';
+								$counter=$counter+1;
 							}
-						?>
-					  </select><br/><br/>
-					  <label class="text">Start Date</label><br/>
-					  <input type="datetime-local" id="sdate" name="sdate"/><br/><br/>
-					 
-					  <label class="text">End Date</label><br/>
-					  <input type="datetime-local" id="edate" name="edate"/><br/><br/>
-					  
-					  <input type="submit" value="Submit Request"/>
-                  </form>
+						}
+					}
+				?>
+				</table>
             </div>
 		</div>
       </section>

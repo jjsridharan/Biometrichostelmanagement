@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700|Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="css/styles-merged.css">
     <link rel="stylesheet" href="css/style.min.css">
+
     <link rel="stylesheet" href="css/custom.css">
 	
 	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -129,6 +130,17 @@
       <script src="js/vendor/respond.min.js"></script>
     <![endif]-->
 	<style>
+		#headersectionstart {
+      background-color: #6a41ed;
+      height: 30%;
+      position: relative;	  
+      width: 100%;
+    }
+	h1{
+		padding: 30px;
+		color:white;
+	}
+
 		input[type=text],#grad,#pgdep,#ugdep,#phdep,input[type=number],input[type=email]
 		{
 			width: 50%;
@@ -238,13 +250,9 @@
         </div>
       </nav>
       
-      <section class="probootstrap-section probootstrap-section-colored">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-7 text-left section-heading probootstrap-animate">
+      <section id="headersectionstart">
+        <div class="container">        
               <h1>Student Registration</h1>
-            </div>
-          </div>
         </div>
       </section>
 

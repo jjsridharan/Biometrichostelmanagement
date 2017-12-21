@@ -127,7 +127,7 @@
           <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li><a href="index.html">Home</a></li>
-              <li class="active"><a href="register.php">Register</a></li>
+              <li><a href="oprequests.php">Outpass Requests</a></li>
               <li><a href="teachers.html">Teachers</a></li>
               <li><a href="events.html">Events</a></li>
               <li class="dropdown">
