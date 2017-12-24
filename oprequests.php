@@ -9,16 +9,17 @@
 -->
 <?php
 	include('dbconnection.php');
-	if(!isset($_SESSION['rcname']))
+	if(!isset($_SESSION['mail']))
 	{
-		$_SESSION['rcname']="Raja";
+		$_SESSION['mail']="raja@gmail.com";
+		$_SESSION['name']="Raja";
 	}
 ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ProBootstrap:Enlight &mdash; Free Bootstrap Theme, Free Responsive Bootstrap Website Template</title>
+    <title>MIT Hostels</title>
     <meta name="description" content="Free Bootstrap Theme by ProBootstrap.com">
     <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
     
@@ -53,18 +54,20 @@
 					reg=reg.substring(index+5);
 					page="rejectop.php";
 				}
-				var td="r"+reg,st="s"+reg,et="e"+reg;
+				var td="r"+reg,st="s"+reg,et="e"+reg,reason="re"+reg;
 				document.getElementById(td).innerHTML="Processing...";
 				st=document.getElementById(st).innerHTML;
-				et=document.getElementById(et).innerHTML;				
+				et=document.getElementById(et).innerHTML;	
+				reason=document.getElementById(reason).innerHTML;
+	
 				reg="reg"+reg;
 				reg=document.getElementById(reg).innerHTML;		
-				var rcname= "<?php echo $_SESSION['rcname'] ?>";				
+				var name= "<?php echo $_SESSION['name'] ?>";					
 				$.ajax(
 				{
 						type:"POST",
 						url:page,
-						data :"regno="+reg+"&st="+st+"&et="+et+"&rc="+rcname,
+						data :"regno="+reg+"&st="+st+"&et="+et+"&reason="+reason+"&rc="+name,
 						dataType:"json",
 						success:function(response)
 						{							
@@ -156,7 +159,7 @@
 		#requests td, #requests th 
 		{
 			border: 1px solid #ddd;
-			padding: 8px;
+			padding: 8px;			
 		}
 
 		#requests tr:nth-child(even)
@@ -174,6 +177,7 @@
 			text-align: left;
 			background-color: #FFFFCC;
 			color: black;
+			table-layout:fixed;
 		}
 	</style>
   </head>
@@ -243,10 +247,11 @@
 					<th>Dept.</th>
 					<th>Start date</th>
 					<th>End date</th>
+					<th>Reason</th>
 					<th>Accept/Reject</th>
 				</tr>
 				<?php
-					$qry="select * from outpassrequest where rcname='".$_SESSION['rcname']."'";
+					$qry="select * from outpassrequest where rcmail='".$_SESSION['mail']."'";
 					$res=mysqli_query($conn,$qry);
 					if($res && mysqli_num_rows($res))
 					{
@@ -259,7 +264,7 @@
 							{
 								$r=mysqli_fetch_assoc($result);
 								echo '<label id="reg'.$counter.'" hidden>'.$row['regno'].'</label>';
-								echo '<tr><td>'.$r['fname'].'</td><td>'.$r['dept'].'</td><td id="s'.$counter.'">'.$row['sdate'].'</td><td id="e'.$counter.'">'.$row['edate'].'</td><td id="r'.$counter.'">'.'<button value="'.$counter.'"><img src="img/tick.png" style="width:20px;height:20px;"></img></button><button style="float:right" value="cross'.$counter.'"><img src="img/cross.png" style="width:20px;height:20px;"></img></button>';
+								echo '<tr><td>'.$r['fname'].'</td><td>'.$r['dept'].'</td><td id="s'.$counter.'">'.$row['sdate'].'</td><td id="e'.$counter.'">'.$row['edate'].'</td><td id="re'.$counter.'">'.$row['reason'].'</td><td id="r'.$counter.'">'.'<button value="'.$counter.'"><img src="img/tick.png" style="width:20px;height:20px;"></img></button><button style="float:right" value="cross'.$counter.'"><img src="img/cross.png" style="width:20px;height:20px;"></img></button></td></tr>';
 								$counter=$counter+1;
 							}
 						}

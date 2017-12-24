@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="css/styles-merged.css">
     <link rel="stylesheet" href="css/style.min.css">
 
-    <link rel="stylesheet" href="css/custom.css">
-	
+	<link rel="stylesheet" href="css/customsmade.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript">
 		function Validate()
@@ -197,59 +197,51 @@
   </head>
   <body>
 
-    <div class="probootstrap-search" id="probootstrap-search">
-      <a href="#" class="probootstrap-close js-probootstrap-close"><i class="icon-cross"></i></a>
-      <form action="#">
-        <input type="search" name="s" id="search" placeholder="Search a keyword and hit enter...">
-      </form>
-    </div>
+    
     
       <nav class="navbar navbar-default probootstrap-navbar">
         <div class="container">
-          <div class="navbar-header">
-            <div class="btn-more js-btn-more visible-xs">
-              <a href="#"><i class="icon-dots-three-vertical "></i></a>
-            </div>
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html" title="ProBootstrap:Enlight">Enlight</a>
-          </div>
+		
+       
+         <div class="col-md-5 col-sm-6 col-xs-12 main_logo">
+           <div class="col-md-2 col-xs-3 aulogo" >
+               <img src="img/aulogo.png" alt="Logo">
+           </div>
+           <div class="col-md-7 col-xs-6 logoText">
+             <center>
+               <p class="mitText"><strong>MIT Hostels</strong></p>
+               <p class="auText">Anna University</p>
+           </center>
+           </div>
+           <div class="col-md-3 col-xs-3 mit_logo">
+               <img src="img/mit.gif" alt="Logo">
+           </div>
+         </div>
+         
+    
 
           <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li><a href="index.html">Home</a></li>
               <li class="active"><a href="register.php">Register</a></li>
-              <li><a href="teachers.html">Teachers</a></li>
-              <li><a href="events.html">Events</a></li>
-              <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Pages</a>
+			  <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Outpass</a>
                 <ul class="dropdown-menu">
-                  <li><a href="about.html">About Us</a></li>
-                  <li><a href="courses.html">Courses</a></li>
-                  <li><a href="course-single.html">Course Single</a></li>
-                  <li><a href="gallery.html">Gallery</a></li>
-                  <li class="dropdown-submenu dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span>Sub Menu</span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Second Level Menu</a></li>
-                      <li><a href="#">Second Level Menu</a></li>
-                      <li><a href="#">Second Level Menu</a></li>
-                      <li><a href="#">Second Level Menu</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="news.html">News</a></li>
+                  <li><a href="outpass.php">New Request</a></li>                  
+                  <li><a href="opstatus.php">Request Status</a></li>
+				  <li><a href="activeop.php">Active Outpasses</a></li>				  
+				  <li><a href="acceptedop.php">Past Requests</a></li>
+				  <li><a href="rejectedop.php">Rejected Requests</a></li> 				  
                 </ul>
               </li>
+              <li><a href="teachers.html">Teachers</a></li>
+              <li><a href="events.html">Events</a></li>
+              
               <li><a href="contact.html">Contact</a></li>
             </ul>
-          </div>
-        </div>
-      </nav>
-      
+          </div> 
+		</div>
+  </nav>
       <section id="headersectionstart">
         <div class="container">        
               <h1>Student Registration</h1>
@@ -260,7 +252,7 @@
 		<div class="container">
 		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
                       <h2 style="color:#8000ff" id="studinfo" hidden>Student Information</h2>
-                      <label class="text">Register Number</label><br/>
+                      <label class="text"><i class="fa fa-user"></i>Register Number</label><br/>
                       <input type="text" id="regno" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Register Number">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					  <button id="validate" onclick="Validate()">Validate</button>                 
 					  <img id="process" src="img/process.gif" alt="Processing" hidden></img>
@@ -280,14 +272,14 @@
         </div>
 		  <div class="col-md-7 col-md-push-1  probootstrap-animate" id="orgform" hidden>                  
                   <form method="post" action="reg.php">        
-					  <label class="text">Name</label><br/>
+					  <label class="text"><i class="fa fa-address-card-o"></i>Name</label><br/>
 					  <input type="text" id="name" placeholder="First Name" name="sfname" required><br/><br/>
 					  <input type="text" id="name" placeholder="Last Name" name="lname" required><br/><br/>
 					  <input type="text" id="regno1" placeholder="Register Number" name="regno" hidden>
-					  <label class="text">Gender</label><br/>
+					  <label class="text"><i class="fa fa-intersex"></i>Gender</label><br/>
 					  <input type="radio" name="gender" value="male"> <label class="smalltext" required>Male</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					  <input type="radio" name="gender" value="female"> <label class="smalltext" required>Female</label><br/><br/>
-					  <label class="text">Graduate Position</label><br/>
+					  <label class="text"><i class="fa fa-graduation-cap"></i>Graduate Position</label><br/>
 					  <input type="text" name="grads" id="grad1" hidden/>
 					  <select id="grad" required>
 						<option value="" selected disabled>Please select Your Department</option>
@@ -346,18 +338,18 @@
 							 <option value="RPT">RPT</option>
 						  </select><br><br>
 					  </div>
-					  <label class="text">Year (Ex: 2)</label><br/>
+					  <label class="text"><i class="fa fa-calendar"></i>Year (Ex: 2)</label><br/>
 					  <input type="number" name="year" id="year" placeholder="Year" min="1" max="7" required><br/><br/>
-					  <label class="text">Mail id</label><br/>
+					  <label class="text"><i class="fa fa-envelope"></i>Mail id</label><br/>
 					  <input type="email" id="name" placeholder="Mail id" name="mid" required><br/><br/>
-					  <label class="text">Phone number</label><br/>
+					  <label class="text"><i class="fa fa-phone"></i>Phone number</label><br/>
 					  <input type="text" id="name" placeholder="Phone Number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required name="pho"><br/><br/>
 					  <h2 style="color:#8000ff">Parent Information</h2>
-					  <label class="text">Father Name</label><br/>
+					  <label class="text"><i class="fa fa-address-card-o"></i>Father Name</label><br/>
 					  <input type="text" id="name" placeholder="Father Name" name="fname" required><br/><br/>
-					  <label class="text">Mail id</label><br/>
+					  <label class="text"><i class="fa fa-envelope"></i>Mail id</label><br/>
 					  <input type="email" id="name" placeholder="Mail id" name="fmid" required><br/><br/>
-					  <label class="text">Phone number</label><br/>
+					  <label class="text"><i class="fa fa-phone"></i>Phone number</label><br/>
 					  <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="name" placeholder="Phone Number" name="fpho" required><br/><br/>				  
 					  <input type="submit" value="Register"/>
                   </form>
