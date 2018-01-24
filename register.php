@@ -29,6 +29,13 @@
 			var reg=document.getElementById("regno").value;
 			document.getElementById("regno").readOnly=true;
 			document.getElementById("present").hidden=true;
+			if(reg=="" || reg.length<8)
+			{
+				alert("Invalid register number");
+				document.getElementById("process").hidden=true;
+				document.getElementById("regno").readOnly=false;
+				return false;
+			}
 			$.ajax(
 			{
 				type: "POST",
@@ -277,12 +284,12 @@
 					  <input type="text" id="name" placeholder="Last Name" name="lname" required><br/><br/>
 					  <input type="text" id="regno1" placeholder="Register Number" name="regno" hidden>
 					  <label class="text"><i class="fa fa-intersex"></i>Gender</label><br/>
-					  <input type="radio" name="gender" value="male"> <label class="smalltext" required>Male</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					  <input type="radio" name="gender" value="female"> <label class="smalltext" required>Female</label><br/><br/>
+					  <input type="radio" name="gender" value="male" required> <label class="smalltext">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					  <input type="radio" name="gender" value="female"> <label class="smalltext">Female</label><br/><br/>
 					  <label class="text"><i class="fa fa-graduation-cap"></i>Graduate Position</label><br/>
 					  <input type="text" name="grads" id="grad1" hidden/>
 					  <select id="grad" required>
-						<option value="" selected disabled>Please select Your Department</option>
+						<option value="" selected disabled>Please select Degree</option>
 						<option value="UG">UG</option>
 						<option value="PG">PG</option>					
 						<option value="Ph.D">Ph.D</option>
@@ -291,7 +298,7 @@
 						<button id="gradselect" onclick="return false;">Change</button><br/>
 					  </div>
 					  <div id="gradchange1">
-						<br/><br/>
+						<br/>
 					  </div>
 					  <div id="ug" hidden>
 					  <label class="text">Department</label><br/>
@@ -321,7 +328,7 @@
 							 <option value="MECH">MECH</option>
 							 <option value="PT">PT</option>
 							 <option value="RPT">RPT</option>
-						  </select><br><br>
+						  </select>
 					  </div>
 					  <div id="phd" hidden>
 					  <label class="text">Department</label><br/>
