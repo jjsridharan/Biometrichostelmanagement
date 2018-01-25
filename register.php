@@ -128,6 +128,16 @@
 			document.getElementById("gradchange1").hidden=false;
 		});
 		});
+		function Validateform()
+		{
+			var year=document.getElementById("year").value;
+			if(year.length>1)
+			{
+				alert("Invalid value for year");
+				return false;
+			}
+			return true;
+		}
 		
 	</script>
 	
@@ -278,7 +288,7 @@
 			 </table>
         </div>
 		  <div class="col-md-7 col-md-push-1  probootstrap-animate" id="orgform" hidden>                  
-                  <form method="post" action="reg.php">        
+                  <form method="post" action="reg.php" onsubmit="return Validateform()">        
 					  <label class="text"><i class="fa fa-address-card-o"></i>Name</label><br/>
 					  <input type="text" id="name" placeholder="First Name" name="sfname" required><br/><br/>
 					  <input type="text" id="name" placeholder="Last Name" name="lname" required><br/><br/>
@@ -303,8 +313,7 @@
 					  <div id="ug" hidden>
 					  <label class="text">Department</label><br/>
 					  <select id="ugdep" name="dept"> 
-							 <option value="" selected disabled>Please select Your Department</option>
-							 <option value="AERO">AERO</option>
+							 <option selected value="AERO">AERO</option>
 							 <option value="AUTO">AUTO</option>
 							 <option value="CSE">CSE</option>
 							 <option value="ECE">ECE</option>
@@ -318,8 +327,7 @@
 					  <div id="pg" hidden>
 					  <label class="text">Department</label><br/>
 					  <select id="pgdep" name="dept1">  
-						<option value="" selected disabled>Please select Your Department</option>
-							 <option value="AERO">AERO</option>
+							 <option selected value="AERO">AERO</option>
 							 <option value="AUTO">AUTO</option>
 							 <option value="CSE">CSE</option>
 							 <option value="ECE">ECE</option>
@@ -333,8 +341,7 @@
 					  <div id="phd" hidden>
 					  <label class="text">Department</label><br/>
 					  <select id="phdep" name="dept2">  
-						<option value="" selected disabled>Please select Your Department</option>
-							 <option value="AERO">AERO</option>
+							 <option selected value="AERO">AERO</option>
 							 <option value="AUTO">AUTO</option>
 							 <option value="CSE">CSE</option>
 							 <option value="ECE">ECE</option>

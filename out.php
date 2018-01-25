@@ -12,17 +12,17 @@
 	$qry="insert into outpassrequest values('$reg','$sdate','$edate','$reason','$rcmail')";
 	$qry1="select * from student where regno='$reg' LIMIT 1";
 	$res = mysqli_query($conn,$qry1);
+	header('Refresh: 1; url=outpass.php');
 	if($res && mysqli_num_rows($res)>0)
 	{
 		$res = mysqli_query($conn,$qry);
 		if($res)
-			echo '<center><h1>Successfully Request Submitted!</h1></center>';
+			echo '<script>alert("Successfully Request Submitted")</script>';
 		else
-			echo '<center><h1>Cannot submit request!</h1></center>';
+			echo '<script>alert("Cannot submit request")</script>';
 	}
 	else
 	{
-		echo '<center><h1>Cannot submit request!</h1></center>';
+		echo '<script>alert("Invalid details")</script>';
 	}
-	header('Refresh: 5; url=outpass.php');
 ?>

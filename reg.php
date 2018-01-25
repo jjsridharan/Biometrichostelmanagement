@@ -28,35 +28,32 @@
 	$qry1="INSERT INTO parentinfo VALUES ('$reg','$fname','$fmid','$fpho')";
 	$r=false;
 	$r1=false;
+	header('Refresh: 1; url=register.php');
 	if(!($lname=="" || $firname=="" || $dept=="" || $grad=="" || ($year<1 && $year>7) || $pho=="" || $fname=="" || $fmid="" || $fpho==""))
 	{
 		$r=mysqli_query($conn,$qry);
 		$r1=mysqli_query($conn,$qry1);
 		if($r && $r1)
 		{
-			echo '<center><h1>Successfully Registered!</h1></center>';
-			echo '<center><h2>Wait while you are forwarded....</h2></center>';
-					
+			echo '<script>alert("Successfully Registered!")</script>';					
 		}
 		else if($r)
 		{
 			$qry="delete from student where regno='$reg'";				
 			$r=mysqli_query($conn,$qry);
-			echo '<center><h1>Faileds to Register!!!</h1></center>';
+			echo '<script>alert("Failed to Register!")</script>';	
 			
 		}
 		else if($r1)
 		{
 			$qry="delete from parentinfo where regno='$reg'";				
 			$r=mysqli_query($conn,$qry);
-			echo '<center><h1>Failedss to Register!!!</h1></center>';
+			echo '<script>alert("Failed to Register!")</script>';	
 			
 		}
 	}
 	else
 	{
-		echo '<center><h1>Failedsss to Register!!!</h1></center>';
-		
+		echo '<script>alert("Failed to Register!")</script>';		
 	}
-	header('Refresh: 5; url=register.php');
 ?>

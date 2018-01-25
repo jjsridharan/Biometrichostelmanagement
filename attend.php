@@ -5,15 +5,19 @@
 	$time=date("m/d/y g:i (A)", time());
 	$qry="insert into nightattendance values('$reg','$time')";
 	$qry1="select * from student where regno='$reg' LIMIT 1";
+	header('Refresh: 1; url=attendance.php');
 	$res = mysqli_query($conn,$qry1);
 	if($res && mysqli_num_rows($res)>0)
 	{
 		$res = mysqli_query($conn,$qry);
-		echo '<center><h1>Successfully Registered!</h1></center>';
+		if($res)
+			echo '<script>alert("Successfully attendance recorded")</script>';
+		else
+			echo '<script>alert("Cannot record attendance")</script>';
 	}
 	else
 	{
-		echo '<center><h1>Invalid register number!</h1></center>';
+		echo '<script>alert("Invalid Credentials")</script>';
 	}
-	header('Refresh: 5; url=attendance.php');
+	
 ?>

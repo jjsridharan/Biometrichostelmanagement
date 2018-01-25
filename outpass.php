@@ -32,6 +32,11 @@
 				alert("End Date should be greater than start date");
 				return false;
 			}
+			if($.trim(reason)=="")
+			{
+				alert("Reason should not be empty");
+				return false;
+			}
 			if(reason.indexOf("#")!=-1)
 			{
 				alert("Reason should not contain #");

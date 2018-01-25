@@ -160,9 +160,9 @@
 		  <div class="col-md-7 col-md-push-1  probootstrap-animate" id="orgform">                  
                   <form method="post" action="attend.php" onsubmit="return Validate()">        
 					  <label class="text">Register Number</label><br/>
-					  <input type="text" id="regno" placeholder="Register Number" name="regno"><br/><br/>
+					  <input type="text" id="regno" placeholder="Register Number" name="regno" required><br/><br/>
 					  <label class="text">Bio Metric</label><br/>
-					  <input type="text" id="bio" placeholder="Bio Metric" name="bio"><br/><br/>
+					  <input type="text" id="bio" placeholder="Bio Metric" name="bio" required><br/><br/>
 					  <input type="submit" value="Record Attendance"/>
                   </form>
             </div>
