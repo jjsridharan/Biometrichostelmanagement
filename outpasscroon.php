@@ -7,6 +7,8 @@
 	{		
 		$date=date("m/d/y g:i (A)", time());
 		$edate=$row['etime'];
+		echo $date;
+		echo $edate;
 		if ($edate < $date)
 		{
 			$regno=$row['regno'];

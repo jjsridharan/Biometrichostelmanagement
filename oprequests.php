@@ -30,18 +30,6 @@
 	
 	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript">
-		function Validate()
-		{
-			var sdate=document.getElementById("sdate").value;
-			var edate=document.getElementById("edate").value;			
-			if(edate < sdate)
-			{
-				alert("End Date should be greater than start date");
-				return false;
-			}
-			return true;
-			
-		}
 		$(document).ready(function()
 		{
 			$("button").click(function()
