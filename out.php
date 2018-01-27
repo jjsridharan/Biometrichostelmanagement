@@ -28,7 +28,7 @@
 			if($res)
 				echo '<script>alert("Successfully Request Submitted")</script>';
 			else
-				echo '<script>alert("Cannot submit request")</script>';
+				echo '<script>alert("Cannot submit request! Already an active request which has not been accepted")</script>';
 		}
 		else
 		{

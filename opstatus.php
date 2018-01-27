@@ -177,12 +177,12 @@
 					{
 						while($row=mysqli_fetch_assoc($res))
 						{		
-							$qry="select name from rclist where mail='".$row['rcmail']."' LIMIT 1";
+							$qry="select fname from rclist where mail='".$row['rcmail']."' LIMIT 1";
 							$result=mysqli_query($conn,$qry);
 							if($result && mysqli_num_rows($result))
 							{
 								$r=mysqli_fetch_assoc($result);
-								echo '<tr><td>'.$row['sdate'].'</td><td>'.$row['edate'].'</td><td>'.$row['reason'].'</td><td>'.$r['name'].'</td></tr>';								
+								echo '<tr><td>'.$row['sdate'].'</td><td>'.$row['edate'].'</td><td>'.$row['reason'].'</td><td>'.$r['fname'].'</td></tr>';								
 								$flag=0;
 								
 							}

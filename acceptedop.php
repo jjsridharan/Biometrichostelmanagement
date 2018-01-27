@@ -123,9 +123,9 @@
          
     
 
-                    <div id="navbar-collapse" class="navbar-collapse collapse">
+            <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <l><a href="index.html">Home</a></li>
+              <li><a href="index.html">Home</a></li>
 			  <li class="dropdown active">
                 <a href="outpass.php" data-toggle="dropdown" class="dropdown-toggle">Outpass</a>
                 <ul class="dropdown-menu">
@@ -148,6 +148,7 @@
               </li>
             </ul>
           </div> 
+	
         </div>
       </nav>
       
