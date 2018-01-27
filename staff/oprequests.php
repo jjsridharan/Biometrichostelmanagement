@@ -1,3 +1,6 @@
+<?php
+include('../dbconnection.php');
+?>
 <!DOCTYPE html>
 
 <!-- 
@@ -7,14 +10,6 @@
   Author URL: https://probootstrap.com
   License: Released for free under the Creative Commons Attribution 3.0 license (probootstrap.com/license)
 -->
-<?php
-	include('dbconnection.php');
-	if(!isset($_SESSION['mail']))
-	{
-		$_SESSION['mail']="raja@gmail.com";
-		$_SESSION['name']="Raja";
-	}
-?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -24,14 +19,38 @@
     <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
     
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700|Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles-merged.css">
-    <link rel="stylesheet" href="css/style.min.css">
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="../css/styles-merged.css">
+    <link rel="stylesheet" href="../css/style.min.css">
+    <link rel="stylesheet" href="../css/customsmade.css">
 	
 	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript">
+	function getCookie(name)
+		{
+		var re = new RegExp(name + "=([^;]+)");
+		var value = re.exec(document.cookie);
+		return (value != null) ? unescape(value[1]) : null;
+		}
+
 		$(document).ready(function()
 		{
+			var mail=getCookie("rcmail");
+		if(mail==null)
+		{
+			alert("Login and try");
+			window.location="login.html";
+		}
+		else
+		{
+			var fname=getCookie("rcname");
+		if(!(fname==null))
+		{
+			$("#myname").html("Hi "+fname);
+			document.getElementById("loggedin").style.display="block";
+			document.getElementById("droploggedin").style.display="block";
+			document.getElementById("notloggedin").style.display="none";			
+		}
+		}
 			$("button").click(function()
 			{
 				var reg=$(this).val();
@@ -50,7 +69,7 @@
 	
 				reg="reg"+reg;
 				reg=document.getElementById(reg).innerHTML;		
-				var name= "<?php echo $_SESSION['name'] ?>";					
+				var name= "<?php echo $_COOKIE['rcname'] ?>";					
 				$.ajax(
 				{
 						type:"POST",
@@ -190,32 +209,26 @@
 
           <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="index.html">Home</a></li>
-              <li class="active"><a href="oprequests.php">Outpass Requests</a></li>
-              <li><a href="teachers.html">Teachers</a></li>
-              <li><a href="events.html">Events</a></li>
-              <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Pages</a>
+              <li class="active"><a href="index.html">Home</a></li>
+			  <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">RC Options</a>
                 <ul class="dropdown-menu">
-                  <li><a href="about.html">About Us</a></li>
-                  <li><a href="courses.html">Courses</a></li>
-                  <li><a href="course-single.html">Course Single</a></li>
-                  <li><a href="gallery.html">Gallery</a></li>
-                  <li class="dropdown-submenu dropdown">
-                    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span>Sub Menu</span></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="#">Second Level Menu</a></li>
-                      <li><a href="#">Second Level Menu</a></li>
-                      <li><a href="#">Second Level Menu</a></li>
-                      <li><a href="#">Second Level Menu</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="news.html">News</a></li>
+                  <li><a href="updatestudent.php">Accept / Reject OP</a></li>                  
+                
                 </ul>
               </li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Room Allocation</a></li>
+			  
+              <li id="notloggedin"><a href="login.html">Login</a></li>			
+			  <li id="loggedin" class="dropdown" style="display:none">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="myname"></a>
+                <ul class="dropdown-menu"  id="droploggedin" style="display:none">
+                  <li><a href="changepass.php">Change Password</a></li>                  
+                  <li><a href="logout.php">Logout</a></li>			  
+                </ul>
+              </li>
             </ul>
-          </div>
+          </div> 
         </div>
       </nav>
       
@@ -239,7 +252,7 @@
 					<th>Accept/Reject</th>
 				</tr>
 				<?php
-					$qry="select * from outpassrequest where rcmail='".$_SESSION['mail']."'";
+					$qry="select * from outpassrequest where rcmail='".$_COOKIE['rcmail']."'";
 					$res=mysqli_query($conn,$qry);
 					if($res && mysqli_num_rows($res))
 					{
@@ -252,7 +265,7 @@
 							{
 								$r=mysqli_fetch_assoc($result);
 								echo '<label id="reg'.$counter.'" hidden>'.$row['regno'].'</label>';
-								echo '<tr><td>'.$r['fname'].'</td><td>'.$r['dept'].'</td><td id="s'.$counter.'">'.$row['sdate'].'</td><td id="e'.$counter.'">'.$row['edate'].'</td><td id="re'.$counter.'">'.$row['reason'].'</td><td id="r'.$counter.'">'.'<button value="'.$counter.'"><img src="img/tick.png" style="width:20px;height:20px;"></img></button><button style="float:right" value="cross'.$counter.'"><img src="img/cross.png" style="width:20px;height:20px;"></img></button></td></tr>';
+								echo '<tr><td>'.$r['fname'].'</td><td>'.$r['dept'].'</td><td id="s'.$counter.'">'.$row['sdate'].'</td><td id="e'.$counter.'">'.$row['edate'].'</td><td id="re'.$counter.'">'.$row['reason'].'</td><td id="r'.$counter.'">'.'<button value="'.$counter.'"><img src="../img/tick.png" style="width:20px;height:20px;"></img></button><button style="float:right" value="cross'.$counter.'"><img src="../img/cross.png" style="width:20px;height:20px;"></img></button></td></tr>';
 								$counter=$counter+1;
 							}
 						}
@@ -267,9 +280,9 @@
     <!-- END wrapper -->
     
 
-    <script src="js/scripts.min.js"></script>
-    <script src="js/main.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="../js/scripts.min.js"></script>
+    <script src="../js/main.min.js"></script>
+    <script src="../js/custom.js"></script>
 
   </body>
 </html>

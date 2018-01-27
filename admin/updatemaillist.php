@@ -23,21 +23,144 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript">
+		var len=0;
+		function ValidateForm()
+		{
+			if(typeof $("#text0").val()==="undefined")
+			{
+				alert("Hi");
+			}
+			return false;
+		}
 		function Fillform(response)
 		{
-		}
-		$(document).ready(function()
-		{
-			function Retrievedata()
+			var res=response.split(",");
+			len=res.length;
+			for(var i=0;i<len-1;i++)
 			{
+				var r= $('<input type="text" id="text'+i+'" value="'+res[i]+'"/>');
+				$("#updateform").append(r);
+				$("#updateform").append('&nbsp; &nbsp;<buttton id="update'+i+'" class="btn btn-success">update</button>');
+				$("#updateform").append('&nbsp; &nbsp;<buttton id="delete'+i+'" class="btn btn-danger">delete</button>');
+			}
+			$("#updateform").append('<br/><br/><buttton id="add" class="btn btn-danger">Add Field</button>');
+		}
+		function validateEmail(email) 
+		{
+			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			return re.test(email);
+		}
+		function getCookie(name)
+	{
+		var re = new RegExp(name + "=([^;]+)");
+		var value = re.exec(document.cookie);
+		return (value != null) ? unescape(value[1]) : null;
+	}
+		$(document).ready(function()
+		{		
+			var mail=getCookie("officeemail");
+		if(mail==null)
+		{
+			alert("Login and try");
+			window.location="login.html";
+		}
+		else
+		{
+			var fname=getCookie("officename");
+		if(!(fname==null))
+		{
+			$("#myname").html("Hi "+fname);
+			document.getElementById("loggedin").style.display="block";
+			document.getElementById("droploggedin").style.display="block";
+			document.getElementById("notloggedin").style.display="none";			
+		}
+		}
+			$('body').on("click", ".btn", function()
+			{
+				var id=this.id;
+				if(id=="add")
+				{
+					$(this).remove();
+					$("#submit").remove();
+					var r= $('<input type="text" id="text'+(len-1)+'"/>');
+					$("#updateform").append(r);
+					$("#updateform").append('&nbsp; &nbsp;<buttton id="update'+(len-1)+'" class="btn btn-success">update</button>');
+					$("#updateform").append('&nbsp; &nbsp;<buttton id="delete'+(len-1)+'" class="btn btn-danger">delete</button>');
+					$("#updateform").append('<br/><br/><buttton id="add" class="btn btn-danger">Add Field</button>');
+					len=len+1;
+				}
+				else if(id.indexOf("update")!=-1)
+				{
+					id=id.substr(6);
+					var mail="";
+					for(var i=0;i<len-1;i++)
+					{
+						if($("#delete"+i).html()=="delete")
+						{
+							var cmail=$("#text"+i).val();
+							if(validateEmail(cmail))
+								mail=mail+cmail+",";
+							else
+							{
+								alert((i+1)+" mail id is invalid");
+								return false;
+							}
+						}
+					}
+					if($.trim(mail).length!=0)
+					{
+						$.ajax(
+						{
+							type: "POST",
+							url : "updatemaillistdb.php",
+							data:"mail="+mail,
+							dataType :"json",
+							success : function(response)
+							{		
+								if(response=="Failed to Updated")
+								{
+									alert("Error in accessing database");
+								}
+								else
+								{
+									alert("Successfully Updated");
+									window.location="updatemaillist.php";
+								}
+							},
+							error : function(err)
+							{
+								alert("Error in retrieving data");
+							}
+						});
+					}
+					else
+					{
+						alert("Atleast One mail should be present");
+					}
+				}
+				else
+				{	
+					var text="text"+id.substr(6);
+					if($(this).html()=="delete")
+					{
+						$('#'+text).attr("disabled", true);
+						$(this).html("enable");
+					}
+					else
+					{
+						$('#'+text).attr("disabled", false);
+						$(this).html("delete");
+					}
+				}
+			});
 			$.ajax(
 			{
 				type: "POST",
 				url : "retrievemail.php",
 				dataType :"json",
 				success : function(response)
-				{					
-					if(response="notsucceeded")
+				{		
+					if(response=="notsucceeded")
 					{
 						alert("Error in accessing database");
 					}
@@ -50,9 +173,7 @@
 				{
 					alert("Error in retrieving data");
 				}
-			}
-			);
-			}
+			});	
 		});
 		
 	</script>
@@ -165,22 +286,28 @@
 
           <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="index.html">Home</a></li>
-           
-			  <li class="dropdown active">
+              <li class="active"><a href="index.html">Home</a></li>
+			  <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin Options</a>
                 <ul class="dropdown-menu">
-                  <li><a href="outpass.php">New Request</a></li>                  
-                  <li><a href="opstatus.php">Request Status</a></li>
-				  <li><a href="activeop.php">Active Outpasses</a></li>				  
-				  <li><a href="acceptedop.php">Past Requests</a></li>
-				  <li><a href="rejectedop.php">Rejected Requests</a></li> 				  
+                  <li><a href="updatestudent.php">Update Student Details</a></li>                  
+                  <li><a href="deletestudent.php">Delete Student</a></li>
+				  <li><a href="registerrc.php">Add RC</a></li>				  
+				  <li><a href="updaterc.php">Update RC Details</a></li>
+				  <li><a href="deleterc.php">Delete RC</a></li> 				  
+				  <li><a href="updatemaillist">Update Mail List</a></li>
                 </ul>
               </li>
-              <li><a href="teachers.html">Teachers</a></li>
-              <li><a href="events.html">Events</a></li>
-              
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Room Allocation</a></li>
+			  
+              <li id="notloggedin"><a href="login.html">Login</a></li>			
+			  <li id="loggedin" class="dropdown" style="display:none">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="myname"></a>
+                <ul class="dropdown-menu"  id="droploggedin" style="display:none">
+                  <li><a href="changepass.php">Change Password</a></li>                  
+                  <li><a href="logout.php">Logout</a></li>			  
+                </ul>
+              </li>
             </ul>
           </div> 
 		</div>
@@ -193,44 +320,13 @@
 
       <section class="probootstrap-section">
 		<div class="container">
-		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
-                      <h2 style="color:#8000ff" id="studinfo" hidden>RC Information</h2>
-                      <label class="text"><i class="fa fa-envelope"></i>Maild Id</label><br/>
-                      <input type="text" id="mailid" placeholder="Mail Id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					  <button id="validate" onclick="Validate()">Validate</button>                 
-					  <img id="process" src="img/process.gif" alt="Processing" hidden></img>
+		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">
+					  <form id="updateform" action="updatemaillistdb.php" method="post" onsubmit="return ValidateForm()">
+							
+                      </form>
         </div>
-		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="present" hidden>    
-			<h2 style="color:#8000ff">Student Information</h2>
-             <table style="width:100%;">
-				<tr>
-					<td id="sname">
-					</td>
-					<td id="sdept">
-					</td>
-					<td id="syear">
-					</td>
-				</tr>
-			 </table>
-        </div>
-		  <div class="col-md-7 col-md-push-1  probootstrap-animate" id="orgform" hidden>                  
-                  <form method="post" action="updatercdb.php" onsubmit="return Validateform()">        
-					<label class="text"><i class="fa fa-address-card-o"></i>Name</label><br/>
-					  <input type="text" id="name" placeholder="First Name" name="rfname" required><br/><br/>
-					  <input type="text" id="name" placeholder="Last Name" name="lname" required><br/><br/>
-					  <input type="text" id="mailid1" placeholder="Register Number" name="mailid" hidden>
-					  <label class="text"><i class="fa fa-intersex"></i>Gender</label><br/>
-					  <input type="radio" name="gender" value="male" required> <label class="smalltext">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					  <input type="radio" name="gender" value="female"> <label class="smalltext">Female</label><br/><br/>					
-					  <label class="text"><i class="fa fa-phone"></i>Phone number</label><br/>
-					  <input type="text" id="phone" placeholder="Phone Number" required name="pho"><br/><br/>
-					  <label class="text"><i class="fa fa-building"></i>Hostel Name</label><br/>
-					  <input type="text" id="name" placeholder="Hostel Name" name="hname" required><br/><br/>
-					  <label class="text">Hostel Block</label><br/>
-					  <input type="text" id="name" placeholder="Hostel Block"  required name="hblock"><br/><br/>
-					  <input type="submit" value="Update"/>
-                  </form>
-            </div>
+		
+		 
 		</div>
       </section>
       <footer class="probootstrap-footer probootstrap-bg">

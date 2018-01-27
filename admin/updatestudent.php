@@ -199,7 +199,32 @@
 			}
 			return true;
 		}
-		
+		function getCookie(name)
+		{
+		var re = new RegExp(name + "=([^;]+)");
+		var value = re.exec(document.cookie);
+		return (value != null) ? unescape(value[1]) : null;
+		}
+	$(document).ready(function()
+	{
+		var mail=getCookie("officeemail");
+		if(mail==null)
+		{
+			alert("Login and try");
+			window.location="login.html";
+		}
+		else
+		{
+			var fname=getCookie("officename");
+		if(!(fname==null))
+		{
+			$("#myname").html("Hi "+fname);
+			document.getElementById("loggedin").style.display="block";
+			document.getElementById("droploggedin").style.display="block";
+			document.getElementById("notloggedin").style.display="none";			
+		}
+		}
+	});
 	</script>
 	
 	
@@ -310,22 +335,28 @@
 
           <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="index.html">Home</a></li>
-           
-			  <li class="dropdown active">
+              <li class="active"><a href="index.html">Home</a></li>
+			  <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin Options</a>
                 <ul class="dropdown-menu">
-                  <li><a href="outpass.php">New Request</a></li>                  
-                  <li><a href="opstatus.php">Request Status</a></li>
-				  <li><a href="activeop.php">Active Outpasses</a></li>				  
-				  <li><a href="acceptedop.php">Past Requests</a></li>
-				  <li><a href="rejectedop.php">Rejected Requests</a></li> 				  
+                  <li><a href="updatestudent.php">Update Student Details</a></li>                  
+                  <li><a href="deletestudent.php">Delete Student</a></li>
+				  <li><a href="registerrc.php">Add RC</a></li>				  
+				  <li><a href="updaterc.php">Update RC Details</a></li>
+				  <li><a href="deleterc.php">Delete RC</a></li> 				  
+				  <li><a href="updatemaillist">Update Mail List</a></li>
                 </ul>
               </li>
-              <li><a href="teachers.html">Teachers</a></li>
-              <li><a href="events.html">Events</a></li>
-              
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Room Allocation</a></li>
+			  
+              <li id="notloggedin"><a href="login.html">Login</a></li>			
+			  <li id="loggedin" class="dropdown" style="display:none">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="myname"></a>
+                <ul class="dropdown-menu"  id="droploggedin" style="display:none">
+                  <li><a href="changepass.php">Change Password</a></li>                  
+                  <li><a href="logout.php">Logout</a></li>			  
+                </ul>
+              </li>
             </ul>
           </div> 
 		</div>

@@ -56,6 +56,24 @@
 			return true;
 			
 		}
+		function getCookie(name)
+	{
+		var re = new RegExp(name + "=([^;]+)");
+		var value = re.exec(document.cookie);
+		return (value != null) ? unescape(value[1]) : null;
+	}
+	
+	$(document).ready(function()
+	{
+		var fname=getCookie("fname");
+		if(!(fname==null))
+		{
+			$("#myname").html("Hi "+fname);
+			document.getElementById("loggedin").style.display="block";
+			document.getElementById("droploggedin").style.display="block";
+			document.getElementById("notloggedin").style.display="none";			
+		}
+	});
 	</script>
 	
 	
@@ -147,12 +165,11 @@
          
     
 
-          <div id="navbar-collapse" class="navbar-collapse collapse">
+                  <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li><a href="index.html">Home</a></li>
-              <li><a href="register.php">Register</a></li>
 			  <li class="dropdown active">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Outpass</a>
+                <a href="outpass.php" data-toggle="dropdown" class="dropdown-toggle">Outpass</a>
                 <ul class="dropdown-menu">
                   <li><a href="outpass.php">New Request</a></li>                  
                   <li><a href="opstatus.php">Request Status</a></li>
@@ -161,10 +178,16 @@
 				  <li><a href="rejectedop.php">Rejected Requests</a></li> 				  
                 </ul>
               </li>
-              <li><a href="teachers.html">Teachers</a></li>
-              <li><a href="events.html">Events</a></li>
-              
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Room Allocation</a></li>
+			  
+              <li id="notloggedin"><a href="login.html">Login</a></li>			
+			  <li id="loggedin" class="dropdown" style="display:none">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="myname"></a>
+                <ul class="dropdown-menu"  id="droploggedin" style="display:none">
+                  <li><a href="myprofile.php">My Profile</a></li>                  
+                  <li><a href="logout.php">Logout</a></li>			  
+                </ul>
+              </li>
             </ul>
           </div> 
 	
@@ -188,13 +211,13 @@
 						<option value="" selected disabled>Please select Your RC Name</option>
 						<?php
 							include('dbconnection.php');
-							$qry="select name,mail,hname,hblock from rclist";
+							$qry="select fname,mail,hname,hblock from rclist";
 							$res=mysqli_query($conn,$qry);	
 							if($res && mysqli_num_rows($res))
 							{
 								while($row=mysqli_fetch_assoc($res))
 								{
-									echo '<option value="'.$row['mail'].'">'.$row['name'].' ('.$row['hname'].' / '.$row['hblock'].')</option>';
+									echo '<option value="'.$row['mail'].'">'.$row['fname'].' ('.$row['hname'].' / '.$row['hblock'].')</option>';
 								}
 							}
 						?>

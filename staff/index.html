@@ -39,7 +39,7 @@
 	
 	$(document).ready(function()
 	{
-		var fname=getCookie("officename");
+		var fname=getCookie("rcname");
 		if(!(fname==null))
 		{
 			$("#myname").html("Hi "+fname);
@@ -93,14 +93,10 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="active"><a href="index.html">Home</a></li>
 			  <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin Options</a>
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">RC Options</a>
                 <ul class="dropdown-menu">
-                  <li><a href="updatestudent.php">Update Student Details</a></li>                  
-                  <li><a href="deletestudent.php">Delete Student</a></li>
-				  <li><a href="registerrc.php">Add RC</a></li>				  
-				  <li><a href="updaterc.php">Update RC Details</a></li>
-				  <li><a href="deleterc.php">Delete RC</a></li> 				  
-				  <li><a href="updatemaillist">Update Mail List</a></li>
+                  <li><a href="oprequests.php">Accept / Reject OP</a></li>                  
+                
                 </ul>
               </li>
               <li><a href="#">Room Allocation</a></li>

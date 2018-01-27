@@ -1,11 +1,15 @@
 <?php
 	include('../dbconnection.php');
-	$qry="select mail from mailist";
+	$qry="select mail from maillist";
 	$r=mysqli_query($conn,$qry);
 	if($r && mysqli_num_rows($r)>0)
 	{
-		$row=mysqli_fetch_assoc($r);
-		echo json_encode($row['mail']);
+		$ans="";
+		while($row= mysqli_fetch_assoc($r))
+		{
+			$ans=$ans.$row['mail'].",";
+		}
+		echo json_encode($ans);
 	}
 	else
 	{

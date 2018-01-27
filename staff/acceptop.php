@@ -1,5 +1,5 @@
 <?php
-include('dbconnection.php');
+include('../dbconnection.php');
 $reg=$_POST['regno'];
 $st=$_POST['st'];
 $et=$_POST['et'];
