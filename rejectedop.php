@@ -1,3 +1,10 @@
+<?php
+	include('dbconnection.php');
+	if(!(isset($_COOKIE['regno'])))
+	{
+		header('Location: login.html');
+	}
+?>
 <!DOCTYPE html>
 
 <!-- 
@@ -7,13 +14,7 @@
   Author URL: https://probootstrap.com
   License: Released for free under the Creative Commons Attribution 3.0 license (probootstrap.com/license)
 -->
-<?php
-	include('dbconnection.php');
-	if(!isset($_SESSION['regno']))
-	{
-		$_SESSION['regno']="2014503056";
-	}
-?>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -147,7 +148,7 @@
 					<th>Approved by</th>
 				</tr>
 				<?php
-					$qry="select * from rejectedoutpass where regno='".$_SESSION['regno']."'";
+					$qry="select * from rejectedoutpass where regno='".$_COOKIE['regno']."'";
 					$res=mysqli_query($conn,$qry);
 					$flag=1;
 					if($res && mysqli_num_rows($res))

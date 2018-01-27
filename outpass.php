@@ -1,3 +1,9 @@
+<?php
+	if(!(isset($_COOKIE['regno'])))
+	{
+		header('Location: login.html');
+	}
+?>
 <!DOCTYPE html>
 
 <!-- 
@@ -176,7 +182,7 @@
 		  <div class="col-md-7 col-md-push-1  probootstrap-animate" id="orgform">                  
                   <form id="outpass" method="post" action="out.php" onsubmit="return Validate()">        
 					  <label class="text"><i class="fa fa-user"></i>Register Number</label><br/>
-					  <input type="text" id="regno1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Register Number" name="regno"><br/><br/>
+					  <input type="text" id="regno1" value="<?php echo $_COOKIE['regno'];?>" readonly placeholder="Register Number" name="regno"><br/><br/>
 					  <label class="text"><i class="fa fa-user-circle-o" style="font-size:22px;color:red"></i>RC Name</label><br/>
 					  <select id="rcname" name="rcmail" required>
 						<option value="" selected disabled>Please select Your RC Name</option>
