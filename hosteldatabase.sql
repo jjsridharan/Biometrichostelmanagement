@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2018 at 07:26 PM
+-- Generation Time: Feb 10, 2018 at 03:24 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -44,6 +44,34 @@ INSERT INTO `currentoutpass` (`regno`, `stime`, `etime`, `reason`, `approvedby`)
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hostelalloted`
+--
+
+CREATE TABLE `hostelalloted` (
+  `ufirstb` varchar(50) NOT NULL,
+  `usecondb` varchar(50) NOT NULL,
+  `uthirdb` varchar(50) NOT NULL,
+  `ufourb` varchar(50) NOT NULL,
+  `ufirstg` varchar(50) NOT NULL,
+  `usecondg` varchar(50) NOT NULL,
+  `uthirdg` varchar(50) NOT NULL,
+  `ufourg` varchar(50) NOT NULL,
+  `pfirstb` varchar(50) NOT NULL,
+  `psecondb` varchar(50) NOT NULL,
+  `pfirstg` varchar(50) NOT NULL,
+  `psecondg` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hostelalloted`
+--
+
+INSERT INTO `hostelalloted` (`ufirstb`, `usecondb`, `uthirdb`, `ufourb`, `ufirstg`, `usecondg`, `uthirdg`, `ufourg`, `pfirstb`, `psecondb`, `pfirstg`, `psecondg`) VALUES
+('0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hostellist`
 --
 
@@ -53,9 +81,17 @@ CREATE TABLE `hostellist` (
   `nblocks` varchar(50) NOT NULL,
   `roomno` longtext NOT NULL,
   `capacity` longtext NOT NULL,
+  `ccapacity` text NOT NULL,
   `grad` varchar(40) NOT NULL,
   `year` varchar(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hostellist`
+--
+
+INSERT INTO `hostellist` (`id`, `hname`, `nblocks`, `roomno`, `capacity`, `ccapacity`, `grad`, `year`) VALUES
+(0, 'Amaravathi', '1', 'a:1:{i:1;a:1:{i:0;s:1:"1";}}', 'a:1:{i:1;a:1:{i:0;s:1:"1";}}', 'a:1:{i:1;a:1:{i:0;s:1:"1";}}', 'null', 'null');
 
 -- --------------------------------------------------------
 
@@ -115,13 +151,6 @@ CREATE TABLE `outpasshistory` (
   `history` longtext NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `outpasshistory`
---
-
-INSERT INTO `outpasshistory` (`regno`, `history`) VALUES
-('2014503056', '01/25/18 10:36 (PM)##01/26/18 2:22 (PM)##adfsasdf##Raja');
-
 -- --------------------------------------------------------
 
 --
@@ -154,7 +183,9 @@ CREATE TABLE `parentinfo` (
 --
 
 INSERT INTO `parentinfo` (`regno`, `pname`, `mailid`, `phoneno`) VALUES
-('2014503056', 'Jothiraman', 'srijj48@gmail.com', '9442334539');
+('2014503056', 'Jothiraman', 'srijj48@gmail.com', '9442334539'),
+('2014503057', 'Pachai', 'pachai@gmail.com', '9442334539'),
+('2014503058', 'Resham', 'Resham@gmail.com', '9442334539');
 
 -- --------------------------------------------------------
 
@@ -212,6 +243,7 @@ CREATE TABLE `student` (
   `dept` varchar(25) NOT NULL,
   `mailid` varchar(40) NOT NULL,
   `phone` varchar(15) NOT NULL,
+  `hid` varchar(50) NOT NULL,
   `hblock` varchar(40) DEFAULT NULL,
   `hroom` varchar(15) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -220,8 +252,10 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`regno`, `bioid`, `fname`, `lname`, `pass`, `gender`, `year`, `grad`, `dept`, `mailid`, `phone`, `hblock`, `hroom`) VALUES
-('2014503056', NULL, 'Sridharan', 'J', '1234', 'male', '4', 'UG', 'CSE', 'jjsridharan@gmail.com', '8438145810', NULL, NULL);
+INSERT INTO `student` (`regno`, `bioid`, `fname`, `lname`, `pass`, `gender`, `year`, `grad`, `dept`, `mailid`, `phone`, `hid`, `hblock`, `hroom`) VALUES
+('2014503056', NULL, 'Sridharan', 'J', '1234', 'male', '4', 'UG', 'CSE', 'jjsridharan@gmail.com', '8438145810', '', NULL, NULL),
+('2014503057', NULL, 'Sundara', 'Akilesh', '1234', 'male', '4', 'UG', 'CSE', 'sundar@gmail.com', '8438145810', '', NULL, NULL),
+('2014503058', NULL, 'Tenduli', 'Reshma', '1234', 'male', '4', 'UG', 'MECH', 'tenduli@gmail.com', '8438145809', '', NULL, NULL);
 
 --
 -- Indexes for dumped tables
