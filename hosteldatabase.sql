@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2018 at 03:24 AM
+-- Generation Time: Feb 10, 2018 at 04:38 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -91,7 +91,7 @@ CREATE TABLE `hostellist` (
 --
 
 INSERT INTO `hostellist` (`id`, `hname`, `nblocks`, `roomno`, `capacity`, `ccapacity`, `grad`, `year`) VALUES
-(0, 'Amaravathi', '1', 'a:1:{i:1;a:1:{i:0;s:1:"1";}}', 'a:1:{i:1;a:1:{i:0;s:1:"1";}}', 'a:1:{i:1;a:1:{i:0;s:1:"1";}}', 'null', 'null');
+(0, 'Amaravathi', '2', 'a:2:{i:1;a:2:{i:0;s:1:"2";i:1;s:1:"3";}i:2;a:3:{i:0;s:1:"5";i:1;s:1:"4";i:2;s:2:"10";}}', 'a:2:{i:1;a:2:{i:0;s:1:"3";i:1;s:1:"4";}i:2;a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"4";}}', 'a:3:{i:1;a:2:{i:0;i:0;i:1;i:0;}i:2;a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"4";}s:0:"";a:1:{s:0:"";i:-1;}}', 'null', 'null');
 
 -- --------------------------------------------------------
 
@@ -253,7 +253,7 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`regno`, `bioid`, `fname`, `lname`, `pass`, `gender`, `year`, `grad`, `dept`, `mailid`, `phone`, `hid`, `hblock`, `hroom`) VALUES
-('2014503056', NULL, 'Sridharan', 'J', '1234', 'male', '4', 'UG', 'CSE', 'jjsridharan@gmail.com', '8438145810', '', NULL, NULL),
+('2014503056', NULL, 'Sridharan', 'J', '1234', 'male', '4', 'UG', 'CSE', 'jjsridharan@gmail.com', '8438145810', '0', 'Amaravathi', '3'),
 ('2014503057', NULL, 'Sundara', 'Akilesh', '1234', 'male', '4', 'UG', 'CSE', 'sundar@gmail.com', '8438145810', '', NULL, NULL),
 ('2014503058', NULL, 'Tenduli', 'Reshma', '1234', 'male', '4', 'UG', 'MECH', 'tenduli@gmail.com', '8438145809', '', NULL, NULL);
 
