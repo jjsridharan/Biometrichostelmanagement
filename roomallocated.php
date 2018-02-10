@@ -204,26 +204,124 @@
 
       <section class="probootstrap-section">
 		<div class="container">
-		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                
-				<select id="hid">
-					<option selected  disabled value="-1">Select Hostel Name</option>
-					<?php
-						include('../dbconnection.php');
-						$qry="Select * from hostellist";
-						$result=mysqli_query($conn,$qry);
-						while($row=mysqli_fetch_assoc($result))
+		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">
+		                 
+                <form id="room" method="post" action="uproomallocate.php">  
+				<input type="text" readOnly name="hname" value="<?php
+				include('dbconnection.php');
+				$qry="select * from student where mailid='".$_COOKIE['email']."'";
+				$result=mysqli_query($conn,$qry);
+				if($result && mysqli_num_rows($result)>0)
+				{
+					$row=mysqli_fetch_assoc($result);
+					$year=$row['year'];
+					$grad=$row['grad'];
+					$gender=$row['gender'];
+					$qry="select * from hostelalloted";
+					$res=mysqli_query($conn,$qry);
+					$rows=mysqli_fetch_assoc($res);
+					$val="";
+					if($grad=="UG")
+					{
+						if($gender=="male")
 						{
-							echo "<option value='".$row['id']."'>".$row['hname']."</option>";
+							if($year==1)
+							{
+								$val=$rows['ufirstb'];
+							}
+							if($year==2)
+							{
+								$val=$rows['usecondb'];
+							}
+							if($year==3)
+							{
+								$val=$rows['uthirdb'];
+							}
+							if($year==4)
+							{
+								$val=$rows['ufourb'];
+							}
 						}
+						else
+						{
+							if($year==1)
+							{
+								$val=$rows['ufirstg'];
+							}
+							if($year==2)
+							{
+								$val=$rows['usecondg'];
+							}
+							if($year==3)
+							{
+								$val=$rows['uthirdg'];
+							}
+							if($year==4)
+							{
+								$val=$rows['ufourg'];
+							}
+						}
+							
+					}
+					else if($grad=="PG")
+					{
+						if($gender=="male")
+						{
+							if($year==1)
+							{
+								$val=$rows['pfirstb'];
+							}
+							if($year==2)
+							{
+								$val=$rows['psecondb'];
+							}		
+						}
+						else
+						{
+							if($year==1)
+							{
+								$val=$rows['pfirstg'];
+							}
+							if($year==2)
+							{
+								$val=$rows['psecondg'];
+							}
+						}
+					}
+					$qry="select hname from hostellist where id='$val'";
+					$res=mysqli_query($conn,$qry);
+					$row=mysqli_fetch_assoc($res);
+					echo $row['hname'];
+				}
+				else
+				{
+					header('refresh:0;url=roomallocation.html');
+				}
+				?>"/>
+				<br/>
+				<input type="text" hidden name="id" value="<?php echo $val ?>" /><br/>
+				<select id="hid" name="room" required>
+					<option selected  disabled value="-1">Select Room Number</option>
+					<?php
+						
+						$qry="Select * from hostellist where id='$val'";
+						$result=mysqli_query($conn,$qry);
+						$row=mysqli_fetch_assoc($result);
+						$room=unserialize($row['roomno']);
+						$capacity=unserialize($row['capacity']);
+						$ccapacity=unserialize($row['ccapacity']);
+						$nblock=$row['nblocks'];
+						for($i=1;$i<=$nblock;$i=$i+1)
+						{
+							for($j=0;$j<count($room[$i]);$j=$j+1)
+							{
+								echo "<option value='".$i."###".$j."###".$room[$i][$j]."'>".$room[$i][$j]." (".$ccapacity[$i][$j].")</option>";
+							}
+						}
+						
 					?>
-				</select>
-				<button id="validate" onclick="FetchDetails()">Choose</button>                 
-                 <form id="room" method="post" action="uproomallocate.php" onsubmit="return Validate()" hidden>        
-					  <label class="text"><i class="fa fa-building"></i>Hostel Name</label><br/>
-					  <input type="text" placeholder="Hostel Name" id="id" name="id" hidden><br/><br/>
-					  <input type="text" placeholder="Hostel Name" id="hname" name="hname"><br/><br/>
-					  <label class="text">Number of blocks</label><br/>
-					  <input type="text" placeholder="Number of Blocks" id="nblocks" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="nblocks"><br/><br/>					  
+				</select><br/><br/>
+				<input type="submit" value="Choose" />      				  
                   </form>
         </div>		  
 		</div>
