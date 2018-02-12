@@ -41,19 +41,19 @@
 		{
 			$qry="delete from student where regno='$reg'";				
 			$r=mysqli_query($conn,$qry);
-			echo '<script>alert("Failed to Register!")</script>';	
+			echo '<script>alert("Failedss to Register!")</script>';	
 			
 		}
 		else if($r1)
 		{
 			$qry="delete from parentinfo where regno='$reg'";				
 			$r=mysqli_query($conn,$qry);
-			echo '<script>alert("Failed to Register!")</script>';	
+			echo '<script>alert("Failedsss to Register!")</script>';	
 			
 		}
 	}
 	else
 	{
-		echo '<script>alert("Failed to Register!")</script>';		
+		echo '<script>alert("Faileds to Register!")</script>';		
 	}
 ?>

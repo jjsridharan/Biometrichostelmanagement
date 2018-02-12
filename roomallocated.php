@@ -295,11 +295,11 @@
 				}
 				else
 				{
-					header('refresh:0;url=roomallocation.html');
+					echo "<script>alert('invalid');</script>";
 				}
 				?>"/>
 				<br/>
-				<input type="text" hidden name="id" value="<?php echo $val ?>" /><br/>
+				<input type="text" hidden name="id" value="<?php echo $val; ?>" /><br/>
 				<select id="hid" name="room" required>
 					<option selected  disabled value="-1">Select Room Number</option>
 					<?php

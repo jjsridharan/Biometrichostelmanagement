@@ -31,7 +31,7 @@ include('../dbconnection.php');
 		var value = re.exec(document.cookie);
 		return (value != null) ? unescape(value[1]) : null;
 		}
-
+		
 		$(document).ready(function()
 		{
 			var mail=getCookie("rcmail");
@@ -69,7 +69,7 @@ include('../dbconnection.php');
 	
 				reg="reg"+reg;
 				reg=document.getElementById(reg).innerHTML;		
-				var name= "<?php echo $_COOKIE['rcname'] ?>";					
+				var name= getCookie('rcname');					
 				$.ajax(
 				{
 						type:"POST",
