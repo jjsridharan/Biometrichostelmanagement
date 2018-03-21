@@ -2,7 +2,7 @@
 	include('dbconnection.php');
 	$email=$_POST['email'];
 	$pass=$_POST['pass'];
-	$qry="select * from student where mailid='$email' and pass='$pass' LIMIT 1";
+	$qry="select * from student where mailid='$email' and BINARY pass='$pass' LIMIT 1";
 	header('Refresh: 0; url=index.html');
 	$res = mysqli_query($conn,$qry);
 	if($res && mysqli_num_rows($res)>0)

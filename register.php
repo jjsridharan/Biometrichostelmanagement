@@ -1,4 +1,11 @@
-
+<?php
+	session_start();
+	if(empty($_SESSION['regno']) || !isset($_SESSION['regno']))
+	{
+		header('Location: index.html');
+	}
+	
+?>
 <!DOCTYPE html>
 
 <!-- 
@@ -56,8 +63,7 @@
 					{
 						alert("Student Id already Present");						
 						document.getElementById("present").hidden=false;
-						var info = response.split(";");
-						document.getElementById("regno").readOnly=false;						
+						var info = response.split(";");					
 						document.getElementById("sname").innerHTML=info[0];
 						document.getElementById("sdept").innerHTML=info[2];
 						document.getElementById("syear").innerHTML=info[1]+" year";
@@ -281,7 +287,7 @@
 		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
                       <h2 style="color:#8000ff" id="studinfo" hidden>Student Information</h2>
                       <label class="text"><i class="fa fa-user"></i>Register Number</label><br/>
-                      <input type="text" id="regno" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Register Number">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <input readonly type="text" id="regno" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Register Number" value="<?php echo $_SESSION['regno'] ?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					  <button id="validate" onclick="Validate()">Validate</button>                 
 					  <img id="process" src="img/process.gif" alt="Processing" hidden></img>
         </div>
