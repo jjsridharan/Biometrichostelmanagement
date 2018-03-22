@@ -23,7 +23,12 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript">
-		
+	function getCookie(name)
+		{
+		var re = new RegExp(name + "=([^;]+)");
+		var value = re.exec(document.cookie);
+		return (value != null) ? unescape(value[1]) : null;
+		}
 	$(document).ready(function()
 	{
 		var mail=getCookie("officeemail");
@@ -42,24 +47,7 @@
 			document.getElementById("notloggedin").style.display="none";			
 		}
 		}
-	});
-	function checkfile() 	
-	{
-    var validExts = new Array(".csv");
-    var fileExt = document.getElementById("fname").value;
-    fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
-    if (validExts.indexOf(fileExt) < 0) {
-      alert("Invalid file selected, valid files are of " +
-               validExts.toString() + " types.");
-      return false;
-    }
-    else return true;
-}function getCookie(name)
-		{
-		var re = new RegExp(name + "=([^;]+)");
-		var value = re.exec(document.cookie);
-		return (value != null) ? unescape(value[1]) : null;
-		}
+	});		
 	</script>
 	
 	
@@ -79,13 +67,18 @@
 		color:white;
 	}
 
-		input[type=file]
+		input[type=text],#grad,#pgdep,#ugdep,#phdep,input[type=number],input[type=email]
 		{
-			color:blue;
-  font-size:25px;
+			width: 50%;
+			padding: 9px 15px;
+			border-radius:10px;
+			outline:none;
 		}
-		
-		input[type=file]:focus
+		input[type=text]:hover,input[type=number]:hover,input[type=email]:hover
+		{
+			border: 2px solid red;
+		}
+		input[type=text]:focus,input[type=number]:focus,input[type=email]:focus
 		{
 			outline: none;
 		}
@@ -163,18 +156,17 @@
          
     
 
-          <div id="navbar-collapse" class="navbar-collapse collapse">
+         <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li class="active"><a href="index.html">Home</a></li>
 			  <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin Options</a>
                 <ul class="dropdown-menu">
-				<li><a href="addnewstudent.php">Add New Students</a></li>                  
-                  
-				<li><a href="updatestudent.php">Update Student Details</a></li>                  
-				<li><a href="deletestudent.php">Delete Student</a></li>
-				  <li><a href="deletestudent.php">Delete Year</a></li>
-				<li><a href="registerrc.php">Add RC</a></li>				  
+                  <li><a href="addnewstudent.php">Add New Students</a></li>                  
+                  <li><a href="updatestudent.php">Update Student Details</a></li>                  
+                  <li><a href="deletestudent.php">Delete Student</a></li>
+			    <li><a href="deleteyear.php">Delete Year</a></li>
+				  <li><a href="registerrc.php">Add RC</a></li>				  
 				  <li><a href="updaterc.php">Update RC Details</a></li>
 				  <li><a href="deleterc.php">Delete RC</a></li> 				  
 				  <li><a href="updatemaillist">Update Mail List</a></li>
@@ -196,19 +188,27 @@
   </nav>
       <section id="headersectionstart">
         <div class="container">        
-              <h1>Student Registration</h1>
+              <h1>Delete Student Year</h1>
         </div>
       </section>
 
       <section class="probootstrap-section">
 		<div class="container">
-		  <div class="col-md-7 col-md-push-1  probootstrap-animate">                  
-				<form method="post" action="addnewstudentdb.php" enctype="multipart/form-data" onSubmit="return checkfile();">        
-					<input type="file" name="student" id="fname" accept=".csv" />
-					<input type="submit" value="Add Students" / >
-				</form>
-				<a href="https://www.freefileconvert.com/xls-csv" target="_blank" style="float:right";>Convert XLSX,XLS to CSV</a>
-            </div>
+		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
+                      <h2 style="color:#8000ff" id="studinfo" hidden>RC Deletetion</h2>
+                      <label class="text"><i class="fa fa-graduation-cap"></i>Select Graduate</label><br/>
+                      <form method="post" action="deleteyeardb.php" onsubmit="return Validateform()">        
+					<select id="grad" name="grad" required>
+						<option value="" selected disabled>Please select Degree</option>
+						<option value="UG">UG</option>
+						<option value="PG">PG</option>					
+						<option value="Ph.D">Ph.D</option>
+					</select><br/><br/>
+					<label class="text"><i class="fa fa-calendar"></i>Year</label><br/>
+					<input required type="number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' min="1" max="7" name="year" placeholder="Enter Year"/><br/><br/>
+					<input type="submit" value="Delete" />
+				  </form>
+				  </div>		  
 		</div>
       </section>
       <footer class="probootstrap-footer probootstrap-bg">

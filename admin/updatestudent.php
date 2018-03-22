@@ -341,6 +341,7 @@
 			   <li><a href="addnewstudent.php">Add New Students</a></li>                  
                   <li><a href="updatestudent.php">Update Student Details</a></li>                  
                   <li><a href="deletestudent.php">Delete Student</a></li>
+				 <li><a href="deleteyear.php">Delete Year</a></li>
 				  <li><a href="registerrc.php">Add RC</a></li>				  
 				  <li><a href="updaterc.php">Update RC Details</a></li>
 				  <li><a href="deleterc.php">Delete RC</a></li> 				  
