@@ -71,7 +71,6 @@
 		{
 			$("#myname").html("Hi "+fname);
 			document.getElementById("loggedin").style.display="block";
-			document.getElementById("droploggedin").style.display="block";
 			document.getElementById("notloggedin").style.display="none";			
 		}
 		}
@@ -239,6 +238,7 @@
 			  <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin Options</a>
                 <ul class="dropdown-menu">
+                  <li><a href="addnewstudent.php">Add New Students</a></li>                  
                   <li><a href="updatestudent.php">Update Student Details</a></li>                  
                   <li><a href="deletestudent.php">Delete Student</a></li>
 				  <li><a href="registerrc.php">Add RC</a></li>				  

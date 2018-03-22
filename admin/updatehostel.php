@@ -269,7 +269,7 @@
               <li id="notloggedin"><a href="login.html">Login</a></li>			
 			  <li id="loggedin" class="dropdown" style="display:none">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="myname"></a>
-                <ul class="dropdown-menu"  id="droploggedin">
+                <ul class="dropdown-menu"  id="droploggedin" style="display:none">
                   <li><a href="changepass.php">Change Password</a></li>                  
                   <li><a href="logout.php">Logout</a></li>			  
                 </ul>

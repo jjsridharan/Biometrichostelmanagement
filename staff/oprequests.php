@@ -47,7 +47,6 @@ include('../dbconnection.php');
 		{
 			$("#myname").html("Hi "+fname);
 			document.getElementById("loggedin").style.display="block";
-			document.getElementById("droploggedin").style.display="block";
 			document.getElementById("notloggedin").style.display="none";			
 		}
 		}

@@ -1,3 +1,6 @@
+<?php
+	include('dbconnection.php');
+?>
 <!DOCTYPE html>
 
 <!-- 
@@ -25,17 +28,17 @@
     <script type="text/javascript">
 		function Fillform()
 		{
-			var mailid=document.getElementById("mailid").value;
+			var reg=document.getElementById("regno").value;
 			$.ajax(
 			{
 				type: "POST",
-				url : "fillrcform.php",
-				data : "mailid="+mailid,
+				url : "admin/fillstudentform.php",
+				data : "regno="+reg,
 				dataType :"json",
 				success : function(response)
 				{					
 					var info = response.split(";");
-					$('[name=rfname]').eq(0).attr('value', info[0]);
+					$('[name=sfname]').eq(0).attr('value', info[0]);
 					$('[name=lname]').eq(0).attr('value', info[1]);
 					if(info[2]=="male")
 					{
@@ -45,9 +48,36 @@
 					{
 						$('[name=gender]').eq(1).prop('checked', true);
 					}
-					$('[name=pho]').eq(0).attr('value', info[3]);
-					$('[name=hname]').eq(0).attr('value', info[4]);
-					$('[name=hblock]').eq(0).attr('value', info[5]);
+					$("#grad").val(info[3]);
+					if(info[3]=="UG")
+					{
+						$("#ugdep").val(info[4]);
+						document.getElementById("ug").hidden=false;
+						document.getElementById("pg").hidden=true;
+						document.getElementById("phd").hidden=true;
+					}
+					else if(info[3]=="PG")
+					{
+						$("#pgdep").val(info[4]);
+						document.getElementById("ug").hidden=true;
+						document.getElementById("pg").hidden=false;
+						document.getElementById("phd").hidden=true;
+					}
+					else
+					{
+						$("#phdep").val(info[4]);
+						document.getElementById("ug").hidden=true;
+						document.getElementById("pg").hidden=true;
+						document.getElementById("phd").hidden=false;
+					}
+					var grad=document.getElementById("grad").value;
+					document.getElementById("grad1").value=grad;
+					$('[name=year]').eq(0).attr('value', info[5]);
+					$('[name=mid]').eq(0).attr('value', info[6]);
+					$('[name=pho]').eq(0).attr('value', info[7]);
+					$('[name=fname]').eq(0).attr('value', info[8]);
+					$('[name=fmid]').eq(0).attr('value', info[9]);
+					$('[name=fpho]').eq(0).attr('value', info[10]);
 				},
 				error : function(err)
 				{
@@ -59,28 +89,28 @@
 		function Validate()
 		{
 			document.getElementById("process").hidden=false;
-			var mailid=document.getElementById("mailid").value;
-			document.getElementById("mailid").readOnly=true;
+			var reg=document.getElementById("regno").value;
+			document.getElementById("regno").readOnly=true;
 			document.getElementById("present").hidden=true;
-			if(mailid=="" || mailid.length<8)
+			if(reg=="" || reg.length<8)
 			{
 				alert("Invalid register number");
 				document.getElementById("process").hidden=true;
-				document.getElementById("mailid").readOnly=false;
+				document.getElementById("regno").readOnly=false;
 				return false;
 			}
 			$.ajax(
 			{
 				type: "POST",
-				url : "Validatercmail.php",
-				data : "mailid="+mailid,
+				url : "Validateregno.php",
+				data : "regno="+reg,
 				dataType :"json",
 				success : function(response)
 				{					
 					if((response=="success"))
 					{
-						alert("RC Mail Id doesn't exists");	
-						window.location="updaterc.php";
+						alert("Student Id doesn't exists");	
+						window.location="updatestudent.php";
 						
 					}
 					else
@@ -88,7 +118,7 @@
 						document.getElementById("orgform").hidden=false;
 						document.getElementById("validate").style.display="none";
 						document.getElementById("studinfo").hidden=false;
-						document.getElementById("mailid1").value=mailid;
+						document.getElementById("regno1").value=reg;
 						Fillform();
 					}	
 					document.getElementById("process").hidden=true;					
@@ -99,7 +129,69 @@
 				}
 			}
 			);
-		}		
+		}
+		$(function(){
+		$("#grad").change(function()
+		{
+			var grad=document.getElementById("grad").value;
+			document.getElementById("grad1").value=grad;
+			if(grad=="UG")
+			{
+				document.getElementById("ug").hidden=false;
+				document.getElementById("pg").hidden=true;
+				document.getElementById("phd").hidden=true;
+			}
+			else if(grad=="PG")
+			{
+				document.getElementById("ug").hidden=true;
+				document.getElementById("pg").hidden=false;
+				document.getElementById("phd").hidden=true;
+			}
+			else
+			{
+				document.getElementById("ug").hidden=true;
+				document.getElementById("pg").hidden=true;
+				document.getElementById("phd").hidden=false;
+			}
+				
+		}
+		);
+		$("#ug").change(function()
+		{
+			var grad=document.getElementById("grad").value;
+			document.getElementById("grad1").value=grad;
+			document.getElementById("grad").disabled=true;
+			document.getElementById("gradchange").hidden=false;
+			document.getElementById("gradchange1").hidden=true;
+		});
+		$("#pg").change(function()
+		{
+			var grad=document.getElementById("grad").value;
+			document.getElementById("grad1").value=grad;
+			var grad=document.getElementById("grad").value;
+			document.getElementById("grad1").value=grad;
+			document.getElementById("grad").disabled=true;
+			document.getElementById("gradchange").hidden=false;
+			document.getElementById("gradchange1").hidden=true;
+		});
+		$("#phd").change(function()
+		{
+			var grad=document.getElementById("grad").value;
+			document.getElementById("grad1").value=grad;
+			document.getElementById("grad").disabled=true;
+			document.getElementById("gradchange").hidden=false;
+			document.getElementById("gradchange1").hidden=true;
+		});
+		$("#gradselect").click(function()
+		{
+			document.getElementById("ug").hidden=true;
+			document.getElementById("pg").hidden=true;
+			document.getElementById("phd").hidden=true;
+			document.getElementById("grad").disabled=false;
+			document.getElementById("gradchange").hidden=true;
+			document.getElementById("gradchange1").hidden=false;
+		});
+		});
 		function Validateform()
 		{
 			var year=document.getElementById("year").value;
@@ -118,6 +210,7 @@
 		}
 	$(document).ready(function()
 	{
+		Validate();
 		var mail=getCookie("officeemail");
 		if(mail==null)
 		{
@@ -125,7 +218,8 @@
 			window.location="login.html";
 		}
 		else
-		{var fname=getCookie("officename");
+		{
+			var fname=getCookie("officename");
 		if(!(fname==null))
 		{
 			$("#myname").html("Hi "+fname);
@@ -134,7 +228,6 @@
 		}
 		}
 	});
-		
 	</script>
 	
 	
@@ -169,7 +262,7 @@
 		{
 			outline: none;
 		}
-		input[type=submit],#validate,#gradselect
+		#button,input[type=submit],#validate,#gradselect
 		{
 			border:none;
 			padding: 8px 20px;
@@ -186,7 +279,7 @@
 			color: black;
 			border: 2px solid #555555;
 		}
-		input[type=submit]:hover,#gradselect:hover,#validate:hover
+		#button:hover,input[type=submit]:hover,#gradselect:hover,#validate:hover
 		{
 			background-color: #555555;
 			color: white;
@@ -249,7 +342,6 @@
 			  <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin Options</a>
                 <ul class="dropdown-menu">
-                  <li><a href="addnewstudent.php">Add New Students</a></li>                  
                   <li><a href="updatestudent.php">Update Student Details</a></li>                  
                   <li><a href="deletestudent.php">Delete Student</a></li>
 				  <li><a href="registerrc.php">Add RC</a></li>				  
@@ -260,7 +352,7 @@
               </li>
               <li><a href="#">Room Allocation</a></li>
 			  
-             <li id="notloggedin"><a href="login.html">Login</a></li>			
+              <li id="notloggedin"><a href="login.html">Login</a></li>			
 			  <li id="loggedin" class="dropdown" style="display:none">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="myname"></a>
                 <ul class="dropdown-menu"  id="droploggedin" style="display:none">
@@ -269,21 +361,21 @@
                 </ul>
               </li>
             </ul>
-          </div> 	
+          </div> 
 		</div>
   </nav>
       <section id="headersectionstart">
         <div class="container">        
-              <h1>Student Registration</h1>
+              <h1>Student Details</h1>
         </div>
       </section>
 
       <section class="probootstrap-section">
 		<div class="container">
 		<div class="col-md-7 col-md-push-1  probootstrap-animate" id="probootstrap-content">                  
-                      <h2 style="color:#8000ff" id="studinfo" hidden>RC Information</h2>
-                      <label class="text"><i class="fa fa-envelope"></i>Maild Id</label><br/>
-                      <input type="text" id="mailid" placeholder="Mail Id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <h2 style="color:#8000ff" id="studinfo" hidden>Student Information</h2>
+                      <label class="text"><i class="fa fa-user"></i>Register Number</label><br/>
+                      <input type="text" id="regno" readOnly value="<?php echo $_COOKIE['regno']?>" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Register Number">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					  <button id="validate" onclick="Validate()">Validate</button>                 
 					  <img id="process" src="img/process.gif" alt="Processing" hidden></img>
         </div>
@@ -301,22 +393,85 @@
 			 </table>
         </div>
 		  <div class="col-md-7 col-md-push-1  probootstrap-animate" id="orgform" hidden>                  
-                  <form method="post" action="updatercdb.php" onsubmit="return Validateform()">        
-					<label class="text"><i class="fa fa-address-card-o"></i>Name</label><br/>
-					  <input type="text" id="name" placeholder="First Name" name="rfname" required><br/><br/>
-					  <input type="text" id="name" placeholder="Last Name" name="lname" required><br/><br/>
-					  <input type="text" id="mailid1" placeholder="Register Number" name="mailid" hidden>
+                  <form>        
+					  <label class="text"><i class="fa fa-address-card-o"></i>Name</label><br/>
+					  <input readOnly type="text" id="name" placeholder="First Name" name="sfname" required><br/><br/>
+					  <input type="text" readOnly id="name" placeholder="Last Name" name="lname" required><br/><br/>
+					  <input type="text" readOnly id="regno1" placeholder="Register Number" name="regno" hidden>
 					  <label class="text"><i class="fa fa-intersex"></i>Gender</label><br/>
-					  <input type="radio" name="gender" value="male" required> <label class="smalltext">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					  <input type="radio" name="gender" value="female"> <label class="smalltext">Female</label><br/><br/>					
+					  <input type="radio" disabled name="gender" value="male" required> <label class="smalltext">Male</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					  <input type="radio" disabled name="gender" value="female"> <label class="smalltext">Female</label><br/><br/>
+					  <label class="text"><i class="fa fa-graduation-cap"></i>Graduate Position</label><br/>
+					  <input type="text" readOnly name="grads" id="grad1" hidden/>
+					  <select id="grad" disabled required>
+						<option value="" selected disabled>Please select Degree</option>
+						<option value="UG">UG</option>
+						<option value="PG">PG</option>					
+						<option value="Ph.D">Ph.D</option>
+					  </select>
+					  <div id="gradchange" hidden>
+						<button id="gradselect" onclick="return false;">Change</button><br/>
+					  </div>
+					  <div id="gradchange1">
+						<br/>
+					  </div>
+					  <div id="ug" hidden>
+					  <label class="text">Department</label><br/>
+					  <select disabled id="ugdep" name="dept"> 
+							 <option selected value="AERO">AERO</option>
+							 <option value="AUTO">AUTO</option>
+							 <option value="CSE">CSE</option>
+							 <option value="ECE">ECE</option>
+							 <option value="EIE">EIE</option>
+							 <option value="IT">IT</option>
+							 <option value="MECH">MECH</option>
+							 <option value="PT">PT</option>
+							 <option value="RPT">RPT</option>
+						  </select><br><br>
+					  </div>
+					  <div id="pg" hidden>
+					  <label class="text">Department</label><br/>
+					  <select disabled id="pgdep" name="dept1">  
+							 <option selected value="AERO">AERO</option>
+							 <option value="AUTO">AUTO</option>
+							 <option value="CSE">CSE</option>
+							 <option value="ECE">ECE</option>
+							 <option value="EIE">EIE</option>
+							 <option value="IT">IT</option>
+							 <option value="MECH">MECH</option>
+							 <option value="PT">PT</option>
+							 <option value="RPT">RPT</option>
+						  </select>
+					  </div>
+					  <div id="phd" hidden>
+					  <label class="text">Department</label><br/>
+					  <select disabled id="phdep" name="dept2">  
+							 <option selected value="AERO">AERO</option>
+							 <option value="AUTO">AUTO</option>
+							 <option value="CSE">CSE</option>
+							 <option value="ECE">ECE</option>
+							 <option value="EIE">EIE</option>
+							 <option value="IT">IT</option>
+							 <option value="MECH">MECH</option>
+							 <option value="PT">PT</option>
+							 <option value="RPT">RPT</option>
+						  </select><br><br>
+					  </div>
+					  <label class="text"><i class="fa fa-calendar"></i>Year (Ex: 2)</label><br/>
+					  <input readOnly type="number" name="year" id="year" placeholder="Year" min="1" max="7" required><br/><br/>
+					  <label class="text"><i class="fa fa-envelope"></i>Mail id</label><br/>
+					  <input readOnly type="email" id="name" placeholder="Mail id" name="mid" required><br/><br/>
 					  <label class="text"><i class="fa fa-phone"></i>Phone number</label><br/>
-					  <input type="text" id="phone" placeholder="Phone Number" required name="pho"><br/><br/>
-					  <label class="text"><i class="fa fa-building"></i>Hostel Name</label><br/>
-					  <input type="text" id="name" placeholder="Hostel Name" name="hname" required><br/><br/>
-					  <label class="text">Hostel Block</label><br/>
-					  <input type="text" id="name" placeholder="Hostel Block"  required name="hblock"><br/><br/>
-					  <input type="submit" value="Update"/>
-                  </form>
+					  <input readOnly type="text" id="name" placeholder="Phone Number" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required name="pho"><br/><br/>
+					  <h2 style="color:#8000ff">Parent Information</h2>
+					  <label class="text"><i class="fa fa-address-card-o"></i>Father Name</label><br/>
+					  <input readOnly type="text" id="name" placeholder="Father Name" name="fname" required><br/><br/>
+					  <label class="text"><i class="fa fa-envelope"></i>Mail id</label><br/>
+					  <input readOnly type="email" id="name" placeholder="Mail id" name="fmid" required><br/><br/>
+					  <label class="text"><i class="fa fa-phone"></i>Phone number</label><br/>
+					  <input readOnly type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="name" placeholder="Phone Number" name="fpho" required><br/><br/>				  
+					  <input id="button" value="Change Password" onclick="location.href='changepass.html';" />
+					  </form>
             </div>
 		</div>
       </section>
