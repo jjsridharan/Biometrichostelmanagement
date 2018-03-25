@@ -65,7 +65,7 @@
 
 				<form class="login100-form validate-form" action="changepassdb.php" method="post" onsubmit="return validateForm()">
 					<span class="login100-form-title">
-						Student Login
+						Change password
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">

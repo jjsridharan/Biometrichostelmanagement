@@ -348,8 +348,15 @@
 				  <li><a href="updatemaillist">Update Mail List</a></li>
                 </ul>
               </li>
-              <li><a href="#">Room Allocation</a></li>
-			  
+                <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Room Allocation</a>
+                <ul class="dropdown-menu">
+                  <li><a href="roomallocation.html">New Hostel Addition</a></li>                  
+                  <li><a href="updatehostel.php">Hostel Updation</a></li>
+				  <li><a href="hosteldel.php">Hostel Deletion</a></li>				  
+				   <li><a href="hostelallocate.php">Hostel Allocation</a></li>
+				 </ul>
+              </li>		
               <li id="notloggedin"><a href="login.html">Login</a></li>			
 			  <li id="loggedin" class="dropdown" style="display:none">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="myname"></a>
@@ -364,7 +371,7 @@
   </nav>
       <section id="headersectionstart">
         <div class="container">        
-              <h1>Student Registration</h1>
+              <h1>Student Details Updation</h1>
         </div>
       </section>
 

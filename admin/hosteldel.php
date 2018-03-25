@@ -194,14 +194,16 @@
 			  <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin Options</a>
                 <ul class="dropdown-menu">
+			   <li><a href="addnewstudent.php">Add new students</a></li>                  
                   <li><a href="updatestudent.php">Update Student Details</a></li>                  
                   <li><a href="deletestudent.php">Delete Student</a></li>
+				<li><a href="deleteyear.php">Delete Year</a></li>
 				  <li><a href="registerrc.php">Add RC</a></li>				  
 				  <li><a href="updaterc.php">Update RC Details</a></li>
 				  <li><a href="deleterc.php">Delete RC</a></li> 				  
 				  <li><a href="updatemaillist">Update Mail List</a></li>
                 </ul>
-              </li>
+              </li> 
 			  <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Room Allocation</a>
                 <ul class="dropdown-menu">
@@ -209,9 +211,7 @@
                   <li><a href="updatehostel.php">Hostel Updation</a></li>
 				  <li><a href="hosteldel.php">Hostel Deletion</a></li>				  
 				  <li><a href="hostelallocate.php">Hostel Allocation</a></li>
-				  <li><a href="deleterc.php">Delete RC</a></li> 				  
-				  <li><a href="updatemaillist">Update Mail List</a></li>
-                </ul>
+				   </ul>
               </li>			  
               <li id="notloggedin"><a href="login.html">Login</a></li>			
 			  <li id="loggedin" class="dropdown" style="display:none">

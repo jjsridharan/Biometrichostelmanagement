@@ -161,29 +161,20 @@
 
          <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="index.html">Home</a></li>
 			  <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin Options</a>
+                <a href="outpass.php" data-toggle="dropdown" class="dropdown-toggle">Outpass</a>
                 <ul class="dropdown-menu">
-                  <li><a href="updatestudent.php">Update Student Details</a></li>                  
-                  <li><a href="deletestudent.php">Delete Student</a></li>
-				  <li><a href="registerrc.php">Add RC</a></li>				  
-				  <li><a href="updaterc.php">Update RC Details</a></li>
-				  <li><a href="deleterc.php">Delete RC</a></li> 				  
-				  <li><a href="updatemaillist">Update Mail List</a></li>
+                  <li><a href="outpass.php">New Request</a></li>                  
+                  <li><a href="opstatus.php">Request Status</a></li>
+				  <li><a href="activeop.php">Active Outpasses</a></li>				  
+				  <li><a href="acceptedop.php">Past Requests</a></li>
+				  <li><a href="rejectedop.php">Rejected Requests</a></li> 				  
                 </ul>
               </li>
-			  <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Room Allocation</a>
-                <ul class="dropdown-menu">
-                  <li><a href="roomallocation.html">New Hostel Addition</a></li>                  
-                  <li><a href="updatehostel.php">Hostel Updation</a></li>
-				  <li><a href="hosteldel.php">Hostel Deletion</a></li>				  
-				  <li><a href="hostelallocate.php">Hostel Allocation</a></li>
-				  <li><a href="deleterc.php">Delete RC</a></li> 				  
-				  <li><a href="updatemaillist">Update Mail List</a></li>
-                </ul>
-              </li>			  
+			 
+               <li class="active"><a href="roomallocated.php" data-toggle="dropdown" class="dropdown-toggle">Room Allocation</a></li>
+               
               <li id="notloggedin"><a href="login.html">Login</a></li>			
 			  <li id="loggedin" class="dropdown" style="display:none">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="myname"></a>

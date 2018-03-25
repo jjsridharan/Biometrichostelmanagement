@@ -191,9 +191,10 @@ include('../dbconnection.php');
 
     
     
-      <nav class="navbar navbar-default probootstrap-navbar">
+     <nav class="navbar navbar-default probootstrap-navbar">
         <div class="container">
-          <div class="navbar-header">
+		
+        <div class="navbar-header">
             <div class="btn-more js-btn-more visible-xs">
               <a href="#"><i class="icon-dots-three-vertical "></i></a>
             </div>
@@ -203,20 +204,35 @@ include('../dbconnection.php');
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html" title="ProBootstrap:Enlight">Enlight</a>
           </div>
+    
+         
+         <div class="col-md-5 col-sm-6 col-xs-12 main_logo">
+           <div class="col-md-2 col-xs-3 aulogo" >
+               <img src="../img/aulogo.png" alt="Logo">
+           </div>
+           <div class="col-md-7 col-xs-6 logoText">
+             <center>
+               <p class="mitText"><strong>MIT Hostels</strong></p>
+               <p class="auText">Anna University</p>
+           </center>
+           </div>
+           <div class="col-md-3 col-xs-3 mit_logo">
+               <img src="../img/mit.gif" alt="Logo">
+           </div>
+         </div>
+        
 
           <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="index.html">Home</a></li>
-			  <li class="dropdown">
+              <li><a href="index.html">Home</a></li>
+			  <li class="dropdown active">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">RC Options</a>
                 <ul class="dropdown-menu">
-                  <li><a href="updatestudent.php">Accept / Reject OP</a></li>                  
+                  <li><a href="oprequests.php">Accept / Reject OP</a></li>                  
                 
                 </ul>
               </li>
-              <li><a href="#">Room Allocation</a></li>
 			  
               <li id="notloggedin"><a href="login.html">Login</a></li>			
 			  <li id="loggedin" class="dropdown" style="display:none">
@@ -228,8 +244,8 @@ include('../dbconnection.php');
               </li>
             </ul>
           </div> 
-        </div>
-      </nav>
+		</div>
+  </nav>
       
        <section id="headersectionstart">
         <div class="container">        

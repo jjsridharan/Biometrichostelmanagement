@@ -211,7 +211,7 @@
 	$(document).ready(function()
 	{
 		Validate();
-		var mail=getCookie("officeemail");
+		var mail=getCookie("fname");
 		if(mail==null)
 		{
 			alert("Login and try");
@@ -219,7 +219,7 @@
 		}
 		else
 		{
-			var fname=getCookie("officename");
+			var fname=getCookie("fname");
 		if(!(fname==null))
 		{
 			$("#myname").html("Hi "+fname);
@@ -356,7 +356,7 @@
 			  <li id="loggedin" class="dropdown" style="display:none">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="myname"></a>
                 <ul class="dropdown-menu"  id="droploggedin" style="display:none">
-                  <li><a href="changepass.php">Change Password</a></li>                  
+                  <li><a href="changepass.html">Change Password</a></li>                  
                   <li><a href="logout.php">Logout</a></li>			  
                 </ul>
               </li>

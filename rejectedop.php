@@ -135,7 +135,7 @@
 				  <li><a href="rejectedop.php">Rejected Requests</a></li> 				  
                 </ul>
               </li>
-              <li><a href="#">Room Allocation</a></li>
+              <li><a href="roomallocated.php">Room Allocation</a></li>
 			  
               <li id="notloggedin"><a href="login.html">Login</a></li>			
 			  <li id="loggedin" class="dropdown" style="display:none">

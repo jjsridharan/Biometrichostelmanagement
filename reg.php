@@ -40,7 +40,7 @@
 	$qry1="INSERT INTO parentinfo VALUES ('$reg','$fname','$fmid','$fpho')";
 	$r=false;
 	$r1=false;
-	header('Refresh: 1; url=register.php');
+	header('Refresh: 1; url=index.html');
 	if(!($lname=="" || $firname=="" || $dept=="" || $grad=="" || ($year<1 && $year>7) || $pho=="" || $fname=="" || $fmid="" || $fpho==""))
 	{
 		$r=mysqli_query($conn,$qry);
